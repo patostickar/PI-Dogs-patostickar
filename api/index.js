@@ -7,21 +7,21 @@ const axios = require("axios");
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
     console.log("%s listening at 3001");
-    // Populate Temperaments table from
-    let temperamentsList = [];
+    // Populate Temperaments table from API at runtime
     axios
       .get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
       .then((res) => {
+        const temperamentsList = [];
         res.data.map((dog) => {
           if (dog.temperament) {
             dog.temperament.split(", ").map((t) => temperamentsList.push(t));
           }
         });
-        temperamentsList = Array.from(new Set(temperamentsList)).map((t) => ({
+        return Array.from(new Set(temperamentsList)).map((t) => ({
           name: t,
         }));
       })
-      .then(async () => {
+      .then(async (temperamentsList) => {
         await Temperament.bulkCreate(temperamentsList).then(() =>
           console.log("Dogs temperaments have been saved")
         );

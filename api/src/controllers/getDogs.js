@@ -12,11 +12,18 @@ Imagen
 Nombre
 Temperamento
 Peso
+
+
  */
+const { getDogs } = require("../services/getDogs");
 
 module.exports.getDogs = async (req, res, next) => {
+  const { name } = req.query;
+  let dogs;
+  name ? (dogs = await getDogs(name)) : (dogs = await getDogs());
+
   try {
-    console.log("getDogs");
+    res.send(dogs);
   } catch (error) {
     next(error);
   }

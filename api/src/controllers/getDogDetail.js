@@ -14,7 +14,7 @@ Ruta de detalle de raza de perro: debe contener
 
 module.exports.getDogDetail = async (req, res, next) => {
   try {
-    console.log("getDogDetail");
+    res.send("getDogDetail");
   } catch (error) {
     next(error);
   }

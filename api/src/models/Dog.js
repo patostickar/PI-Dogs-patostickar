@@ -1,3 +1,12 @@
+/*
+[ ] Raza con las siguientes propiedades:
+ID *
+Nombre *
+Altura *
+Peso *
+Años de vida
+ */
+
 const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
@@ -15,14 +24,6 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
-    weight_min: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    weight_max: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     height_min: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -31,13 +32,19 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    life_span_min: {
+    weight_min: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    life_span_max: {
+    weight_max: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    life_span: {
+      type: DataTypes.INTEGER,
+    },
+    image: {
+      type: DataTypes.STRING,
     },
     weigth: {
       type: DataTypes.VIRTUAL,
@@ -49,12 +56,6 @@ module.exports = (sequelize) => {
       type: DataTypes.VIRTUAL,
       get() {
         return `${this.height_min} - ${this.height_max}`;
-      },
-    },
-    life_span: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        return `${this.lifespan_min} - ${this.lifespan_max} years`;
       },
     },
     createdInDB: {
