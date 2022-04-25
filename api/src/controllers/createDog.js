@@ -28,33 +28,44 @@ module.exports.createDog = async (req, res, next) => {
     life_span,
   } = req.body;
 
-  // Validate presence and typeof of mandatory inputs
+  // Validate presence, typeof and constraints of mandatory inputs
   if (!name || !height_min || !height_max || !weight_min || !weight_max) {
     return res.status(400).send("Please send all the mandatory information");
   }
+  console.log(typeof name);
   if (
     typeof name !== "string" ||
+    !/^[a-zA-Z ]*$/.test(name) ||
     typeof height_min !== "number" ||
+    height_min < 0 ||
+    height_min > height_max ||
     typeof height_max !== "number" ||
+    height_max < 0 ||
     typeof weight_min !== "number" ||
-    typeof weight_max !== "number"
+    weight_min < 0 ||
+    weight_min > weight_max ||
+    typeof weight_max !== "number" ||
+    weight_max < 0
   ) {
     return res
       .status(400)
-      .send("Please send the information with valid input types");
+      .send(
+        "Please send the mandatory information with valid input types or congruent information"
+      );
   }
-  // Validate typeof optional inputs
+  // Validate typeof optional inputs if present
   if (
-    (image && typeof image !== "string") ||
     (temperament && !Array.isArray(temperament)) ||
+    (image && typeof image !== "string") ||
     (life_span && typeof life_span !== "number")
   ) {
     return res
       .status(400)
-      .send("Please send the information with valid input types");
+      .send("Please send the optional information with valid input types");
   }
 
   try {
+    req.body.name = req.body.name.trim();
     const dog = await createDog(req.body);
     res.status(201).send(`Puppy ${dog} created`);
   } catch (error) {

@@ -15,12 +15,12 @@ Peso
 
 
  */
-const { getDogs } = require("../services/getDogs");
+const { getDogsByName } = require("../services/getDogsByName");
 
 module.exports.getDogs = async (req, res, next) => {
   const { name } = req.query;
-  let dogs;
-  name ? (dogs = await getDogs(name)) : (dogs = await getDogs());
+
+  let dogs = await getDogsByName(name);
 
   try {
     res.send(dogs);

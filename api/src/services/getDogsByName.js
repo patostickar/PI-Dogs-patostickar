@@ -3,8 +3,9 @@ const { API_KEY } = process.env;
 const { Dog, Temperament } = require("../db");
 const axios = require("axios");
 const { Op } = require("sequelize");
+const { simpleDogData } = require("../utils/simpleDogData");
 
-module.exports.getDogs = async (name) => {
+module.exports.getDogsByName = async (name) => {
   console.log("calling getDogs fc");
 
   // API Dogs
@@ -41,22 +42,6 @@ module.exports.getDogs = async (name) => {
     dbDogs,
   ]);
 
-  // Format response
-  // Falta resolver image de perros de la DB
-  function formatDog(dogData) {
-    return dogData.map((dog) => {
-      return {
-        id: dog.id,
-        name: dog.name,
-        weight: dog.weight?.metric || dog.weigth,
-        temperament:
-          dog?.temperament ||
-          dog.dataValues?.Temperaments.map((t) => t.dataValues.name).join(", "),
-        image: dog?.reference_image_id || dog?.image,
-      };
-    });
-  }
-
-  let response = [...formatDog(apiDogsData), ...formatDog(dbDogsData)];
-  return response.length ? response : "No puppies found with that name :(";
+  let response = [...simpleDogData(apiDogsData), ...simpleDogData(dbDogsData)];
+  return response.length ? response : "No puppies found with that name ☹️";
 };

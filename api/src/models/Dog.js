@@ -23,25 +23,51 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        is: /^[a-zA-Z ]*$/,
+      },
     },
     height_min: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 0,
+        isInt: true,
+      },
     },
     height_max: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 0,
+        isInt: true,
+      },
     },
     weight_min: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 0,
+        isInt: true,
+      },
     },
     weight_max: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 0,
+        isInt: true,
+      },
     },
     life_span: {
       type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+        isInt: true,
+      },
+      get() {
+        return `${this.getDataValue("life_span")} years`;
+      },
     },
     image: {
       type: DataTypes.STRING,
@@ -52,7 +78,7 @@ module.exports = (sequelize) => {
         return `${this.weight_min} - ${this.weight_max}`;
       },
     },
-    height: {
+    heigth: {
       type: DataTypes.VIRTUAL,
       get() {
         return `${this.height_min} - ${this.height_max}`;

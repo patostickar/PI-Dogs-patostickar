@@ -6,15 +6,19 @@ Incluir los temperamentos asociados
 
 Ruta de detalle de raza de perro: debe contener
 
-[ ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento)
+[ ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre, temperamento, peso)
 [ ] Altura
 [ ] Peso
 [ ] Años de vida
  */
 
+const { getDogById } = require("../services/getDogById");
+
 module.exports.getDogDetail = async (req, res, next) => {
+  const { idRaza } = req.params;
   try {
-    res.send("getDogDetail");
+    const dog = await getDogById(idRaza);
+    res.send(dog);
   } catch (error) {
     next(error);
   }

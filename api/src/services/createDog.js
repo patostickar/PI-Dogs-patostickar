@@ -15,7 +15,7 @@ module.exports.createDog = async (data) => {
       // map no es async
       for (const t of temperament) {
         const [temp] = await Temperament.findOrCreate({
-          where: { name: t },
+          where: { name: t.trim() },
         });
         temperamentsIds.push(temp.dataValues.id);
       }

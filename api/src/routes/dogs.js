@@ -5,6 +5,6 @@ const { getDogs } = require("../controllers/getDogs");
 const { getDogDetail } = require("../controllers/getDogDetail");
 
 router.get("/", getDogs);
-router.get("/:id", getDogDetail);
+router.get("/:idRaza", getDogDetail);
 
 module.exports = router;
