@@ -5,8 +5,6 @@ const axios = require("axios");
 const { detailedDogData } = require("../utils/detailedDogData");
 
 module.exports.getDogById = async (id) => {
-  console.log("calling getDogById fc");
-
   let dog;
 
   // DB Dogs
@@ -18,7 +16,6 @@ module.exports.getDogById = async (id) => {
       `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
     );
 
-    // console.log(dogs.data);
     dog = dogs.data.find((d) => d.id === parseInt(id));
 
     console.log(dog);

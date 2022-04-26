@@ -6,8 +6,6 @@ const { Op } = require("sequelize");
 const { simpleDogData } = require("../utils/simpleDogData");
 
 module.exports.getDogsByName = async (name) => {
-  console.log("calling getDogs fc");
-
   // API Dogs
   // Chose API enpoint depending on presence of name
   let apiDogs;

@@ -72,13 +72,13 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
     },
-    weigth: {
+    weight: {
       type: DataTypes.VIRTUAL,
       get() {
         return `${this.weight_min} - ${this.weight_max}`;
       },
     },
-    heigth: {
+    height: {
       type: DataTypes.VIRTUAL,
       get() {
         return `${this.height_min} - ${this.height_max}`;

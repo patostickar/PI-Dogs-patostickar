@@ -3,7 +3,7 @@ module.exports.simpleDogData = (dogData) => {
     return {
       id: dog.id,
       name: dog.name,
-      weight: dog.weight?.metric || dog.weigth,
+      weight: dog.weight?.metric || dog.weight,
       temperament:
         dog?.temperament ||
         dog.dataValues?.Temperaments.map((t) => t.dataValues.name).join(", "),

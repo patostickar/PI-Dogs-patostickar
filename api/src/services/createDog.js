@@ -1,8 +1,6 @@
 const { Dog, Temperament } = require("../db");
 
 module.exports.createDog = async (data) => {
-  console.log("calling createDog fc");
-
   const { temperament } = data;
 
   if (temperament) {
