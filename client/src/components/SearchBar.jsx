@@ -7,7 +7,6 @@ import styles from "./styles/SearchBar.modules.css";
 export default function SearchBar() {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
-
   function handleChange(e) {
     setValue(e.target.value);
   }
@@ -24,24 +23,15 @@ export default function SearchBar() {
     return /^[a-zA-Z ]*$/.test(input);
   }
 
-  function getAllDogs() {
-    dispatch(getDogByName(""));
-  }
-
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Find a puppy.."
-          value={value}
-          onChange={handleChange}
-        />
-        <input type="submit" value="🔎" />
-      </form>
-      <button style={styles.button} onClick={getAllDogs}>
-        🧹
-      </button>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Find a puppy.."
+        value={value}
+        onChange={handleChange}
+      />
+      <input type="submit" value="🔎" />
+    </form>
   );
 }

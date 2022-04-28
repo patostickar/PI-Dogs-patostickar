@@ -1,8 +1,8 @@
-import { CLEAR_PAGE, SET_FAV, DEL_FAV } from "./index";
+import { CLEAR_DETAIL_PAGE, SET_FAV, DEL_FAV } from "./index";
 
 export function clearPage() {
   return {
-    type: CLEAR_PAGE,
+    type: CLEAR_DETAIL_PAGE,
   };
 }
 

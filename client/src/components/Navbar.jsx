@@ -1,23 +1,25 @@
 import React from "react";
-import SearchBar from "./SearchBar";
+
 import { useDispatch } from "react-redux";
-import {
-  filterByApi,
-  filterByDB,
-  sortAscending,
-  sortDescending,
-} from "../redux/actions";
+import { sort, filter } from "../redux/actions";
+import SearchBar from "./SearchBar";
+import Temperaments from "./Temperaments";
+import ClearFields from "./ClearFields.jsx";
 
 function Navbar() {
   const dispatch = useDispatch();
 
   return (
     <div>
-      <button onClick={() => dispatch(filterByApi())}>API</button>
-      <button onClick={() => dispatch(filterByDB())}>DB</button>
-      <button onClick={() => dispatch(sortAscending())}>ASC</button>
-      <button onClick={() => dispatch(sortDescending())}>DESC</button>
       <SearchBar />
+      <button onClick={() => dispatch(filter("src", "API"))}>API</button>
+      <button onClick={() => dispatch(filter("src", "DB"))}>DB</button>
+      <button onClick={() => dispatch(sort("dsc", "name"))}>DSC N</button>
+      <button onClick={() => dispatch(sort("asc", "name"))}>ASC N</button>
+      <button onClick={() => dispatch(sort("asc", "weight"))}>ASC W</button>
+      <button onClick={() => dispatch(sort("dsc", "weight"))}>DSC W</button>
+      <Temperaments />
+      <ClearFields />
     </div>
   );
 }

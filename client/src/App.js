@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./components/Navbar.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getDogs } from "./redux/actions";
+import { getDogs, getTemps } from "./redux/actions";
 import { Route, Switch } from "react-router-dom";
 import Landing from "./components/Landing.jsx";
 import Dogs from "./components/Dogs.jsx";
@@ -15,16 +15,17 @@ function App() {
   // if it didn't it shouldn't update, but will it show the loader? it shouldn't because there will be initialState 🤔
   useEffect(() => {
     dispatch(getDogs());
+    dispatch(getTemps());
   }, [dispatch]);
 
   return (
     <div className="App">
       <Switch>
         <Route exact path="/" component={Landing} />
-        <div>
+        <>
           <Navbar />
           <Route exact path="/dogs" component={Dogs} />
-        </div>
+        </>
       </Switch>
     </div>
   );

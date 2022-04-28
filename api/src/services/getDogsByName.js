@@ -40,6 +40,5 @@ module.exports.getDogsByName = async (name) => {
     dbDogs,
   ]);
 
-  let response = [...simpleDogData(apiDogsData), ...simpleDogData(dbDogsData)];
-  return response.length ? response : "No puppies found with that name ☹️";
+  return [...simpleDogData(apiDogsData), ...simpleDogData(dbDogsData)];
 };

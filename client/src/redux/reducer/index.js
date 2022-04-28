@@ -2,15 +2,14 @@ import {
   GET_DOGS,
   GET_DOG_DETAIL,
   GET_DOGS_BY_NAME,
-  CLEAR_PAGE,
+  GET_TEMPS,
+  CLEAR_TEMPS,
+  CLEAR_DETAIL_PAGE,
   SET_FAV,
   DEL_FAV,
   GET_ALERT,
-  SORT_ASCENDING,
-  SORT_DESCENDING,
-  FILTER_BY_API,
-  FILTER_BY_DB,
-  FILTER_BY_TEMPERAMENT,
+  SORT,
+  FILTER,
 } from "../actions";
 
 // Store - Is what holds all the data your application uses.
@@ -22,24 +21,21 @@ import {
 
 export const initialState = {
   dogs: [],
+  temperaments: [],
   dogDetail: [],
   favDogs: [],
   apiDogs: [],
   dbDogs: [],
-  temperamentFilter: "",
+  tempFilter: null,
   alertMessage: "",
 };
 
 /*
-
-In the same reducer you'll need to store a list of the filters which will consist of the key to filter on and the value to filter by. e.g.
-
+In the same reducer you'll need to store a list of the filters,
+which will consist of the key to filter on and the value to filter by. e.g.
 [{ key: 'sport', value: 'basketball'}, { key: 'country', value: 'NZ'}]
-then you just apply the filters on the list of people:
-
-people.filter(person => filters.every(filter => person[filter.key] === filter.value))
-This just checks that each person matches all of the filters
- */
+I can't include de API/DB here because the comparison is different (typeof vs includes)
+*/
 
 export default function reducer(state = initialState, { type, payload }) {
   // Hash Table instead of if/else or Switch (more efficient)
@@ -64,6 +60,9 @@ export default function reducer(state = initialState, { type, payload }) {
     [GET_DOG_DETAIL]: () => {
       return { ...state, dogDetail: payload };
     },
+    [GET_TEMPS]: () => {
+      return { ...state, temperaments: payload };
+    },
     [SET_FAV]: () => {
       return {
         ...state,
@@ -78,34 +77,52 @@ export default function reducer(state = initialState, { type, payload }) {
         dodogDetail: state.favDogs.filter((dog) => dog.id !== payload.id),
       };
     },
-    [CLEAR_PAGE]: () => {
+    [CLEAR_DETAIL_PAGE]: () => {
       return { ...state, dogDetail: {} };
     },
-    [SORT_ASCENDING]: () => {
-      const ascendingDogs = state.dogs.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-      return { ...state, dogs: [...ascendingDogs] };
+    [CLEAR_TEMPS]: () => {
+      return { ...state, tempFilter: null };
     },
-    [SORT_DESCENDING]: () => {
-      const descendingDogs = state.dogs.sort((a, b) =>
-        b.name.localeCompare(a.name)
-      );
-      return { ...state, dogs: [...descendingDogs] };
+    [SORT]: () => {
+      let sortedDogs;
+      if (payload.prop === "name") {
+        if (payload.direction === "asc")
+          sortedDogs = state.dogs.sort((a, b) => a.name.localeCompare(b.name));
+        if (payload.direction === "dsc")
+          sortedDogs = state.dogs.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      if (payload.prop === "weight") {
+        if (payload.direction === "asc")
+          // MIN-MAX taking only min as reference
+          sortedDogs = state.dogs.sort((a, b) => a.weight[0] - b.weight[0]);
+        if (payload.direction === "dsc")
+          // MAX-MIN taking only max as reference (defaults to [0] in case of only one weight value)
+          sortedDogs = state.dogs.sort(
+            (a, b) =>
+              (b.weight[1] || b.weight[0]) - (a.weight[1] || a.weight[0])
+          );
+      }
+      return { ...state, dogs: [...sortedDogs] };
     },
-    [FILTER_BY_API]: () => {
-      return { ...state, dogs: [...state.apiDogs] };
-    },
-    [FILTER_BY_DB]: () => {
-      return { ...state, dogs: [...state.dbDogs] };
-    },
-    [FILTER_BY_TEMPERAMENT]: () => {
-      return { ...state, dogs: [...state.dbDogs] };
+    // Because id has to be compared by typeof, I can't use the same filtering as with tempFilter
+    [FILTER]: () => {
+      if (payload.key === "src") {
+        if (payload.value === "DB")
+          return { ...state, dogs: [...state.dbDogs] };
+        if (payload.value === "API")
+          return { ...state, dogs: [...state.apiDogs] };
+      }
+      // tempFilter
+      return {
+        ...state,
+        tempFilter: { key: payload.key, value: payload.value },
+      };
     },
     [GET_ALERT]: () => {
       return { ...state, alertMessage: payload };
     },
   };
-
+  // same as case or default
   return actions[type] ? actions[type]() : state;
 }
