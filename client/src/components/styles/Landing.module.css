@@ -1,0 +1,39 @@
+p {
+  color: #969696;
+  font-weight: 600;
+}
+
+.title {
+  font-family: "Sen", sans-serif;
+  font-weight: 800;
+  font-size: 3em;
+}
+
+@property --num {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+.nums {
+  /* animation: counter 5s infinite alternate ease-in-out; */
+  animation-name: counter;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  counter-reset: num var(--num);
+  font: 800 40px system-ui;
+  padding: 2rem;
+}
+.nums::after {
+  content: counter(num);
+}
+
+@keyframes counter {
+  from {
+    --num: 0;
+  }
+  to {
+    --num: 174;
+  }
+}
