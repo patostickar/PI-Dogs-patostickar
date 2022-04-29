@@ -1,10 +1,4 @@
-import { CLEAR_DETAIL_PAGE, SET_FAV, DEL_FAV } from "./index";
-
-export function clearPage() {
-  return {
-    type: CLEAR_DETAIL_PAGE,
-  };
-}
+import { SET_FAV, DEL_FAV } from './index';
 
 export function setFav(payload) {
   return {

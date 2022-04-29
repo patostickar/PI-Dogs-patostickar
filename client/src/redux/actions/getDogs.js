@@ -2,11 +2,12 @@ import {
   GET_DOGS,
   GET_DOG_DETAIL,
   GET_DOGS_BY_NAME,
+  CLEAR_DETAIL_PAGE,
   GET_ALERT,
   GET_TEMPS,
-} from "./index";
+} from './index';
 
-import axios from "axios";
+import axios from 'axios';
 
 export function getDogs() {
   return (dispatch) => {
@@ -34,8 +35,18 @@ export function getDogDetail(id) {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_BASE_URL}/dogs/${id}`)
-      .then((res) => dispatch({ type: GET_DOG_DETAIL, payload: res.data }))
+      .then((res) => {
+        if (typeof res.data === 'object')
+          dispatch({ type: GET_DOG_DETAIL, payload: res.data }); // Dog found
+        return dispatch({ type: GET_ALERT, payload: res.data }); // Dog not found
+      })
       .catch((err) => console.log(err));
+  };
+}
+
+export function clearPage() {
+  return {
+    type: CLEAR_DETAIL_PAGE,
   };
 }
 

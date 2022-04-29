@@ -1,14 +1,14 @@
-require("dotenv").config();
+require('dotenv').config();
 const { API_KEY } = process.env;
-const { Dog, Temperament } = require("../db");
-const axios = require("axios");
-const { detailedDogData } = require("../utils/detailedDogData");
+const { Dog, Temperament } = require('../db');
+const axios = require('axios');
+const { detailedDogData } = require('../utils/detailedDogData');
 
 module.exports.getDogById = async (id) => {
   let dog;
 
   // DB Dogs
-  if (id.includes("-")) {
+  if (id.includes('-')) {
     dog = await Dog.findByPk(id, { include: Temperament });
   } else {
     // API Dogs
@@ -17,9 +17,7 @@ module.exports.getDogById = async (id) => {
     );
 
     dog = dogs.data.find((d) => d.id === parseInt(id));
-
-    console.log(dog);
   }
 
-  return dog ? detailedDogData(dog) : "No puppies found with that id ☹️";
+  return detailedDogData(dog);
 };

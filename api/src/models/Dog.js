@@ -7,12 +7,12 @@ Peso *
 Años de vida
  */
 
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("Dog", {
+  sequelize.define('Dog', {
     id: {
       primaryKey: true,
       type: DataTypes.UUID,
@@ -66,7 +66,7 @@ module.exports = (sequelize) => {
         isInt: true,
       },
       get() {
-        return `${this.getDataValue("life_span")} years`;
+        return `${this.getDataValue('life_span')} years`;
       },
     },
     image: {
@@ -83,10 +83,6 @@ module.exports = (sequelize) => {
       get() {
         return `${this.height_min} - ${this.height_max}`;
       },
-    },
-    createdInDB: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
     },
   });
 };

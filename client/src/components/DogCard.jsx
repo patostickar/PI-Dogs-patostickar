@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DogCard = (props) => {
   const { id, name, w_min, w_max, temperament: t, image } = props;
@@ -6,7 +7,9 @@ const DogCard = (props) => {
   return (
     <div>
       <p>{image}</p>
-      <p>{name}</p>
+      <Link to={`/dogs/${id}`}>
+        <p>{name}</p>
+      </Link>
       <p>Min: {w_min || `-`}</p>
       <p>Max: {w_max || `-`}</p>
       <ul>

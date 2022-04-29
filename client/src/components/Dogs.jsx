@@ -1,16 +1,18 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import DogCard from "./DogCard";
-import Spinner from "./Spinner";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import Spinner from './Spinner';
+import Navbar from './Navbar';
+import DogCard from './DogCard';
 
 const Dogs = () => {
   const dogs = useSelector((state) => state.dogs);
   const tempFilter = useSelector((state) => state.tempFilter);
   const [isLoading, setIsLoading] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (dogs) {
+    if (dogs.length) {
       setIsLoading(false);
     }
   }, [dogs]);
@@ -28,6 +30,7 @@ const Dogs = () => {
 
   return (
     <>
+      <Navbar />
       {isLoading ? (
         <Spinner />
       ) : (

@@ -12,12 +12,13 @@ Ruta de detalle de raza de perro: debe contener
 [ ] Años de vida
  */
 
-const { getDogById } = require("../services/getDogById");
+const { getDogById } = require('../services/getDogById');
 
 module.exports.getDogDetail = async (req, res, next) => {
   const { idRaza } = req.params;
   try {
     const dog = await getDogById(idRaza);
+    if (!dog) return res.send('No puppies found with that id ☹️');
     res.send(dog);
   } catch (error) {
     next(error);

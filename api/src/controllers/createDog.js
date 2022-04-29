@@ -14,7 +14,7 @@ Años de vida
 [x] Botón/Opción para crear una nueva raza de perro
 */
 
-const { createDog } = require("../services/createDog");
+const { createDog } = require('../services/createDog');
 
 module.exports.createDog = async (req, res, next) => {
   const {
@@ -30,38 +30,37 @@ module.exports.createDog = async (req, res, next) => {
 
   // Validate presence, typeof and constraints of mandatory inputs
   if (!name || !height_min || !height_max || !weight_min || !weight_max) {
-    return res.status(400).send("Please send all the mandatory information");
+    return res.status(400).send('Please send all the mandatory information');
   }
-  console.log(typeof name);
   if (
-    typeof name !== "string" ||
+    typeof name !== 'string' ||
     !/^[a-zA-Z ]*$/.test(name) ||
-    typeof height_min !== "number" ||
+    typeof height_min !== 'number' ||
     height_min < 0 ||
     height_min > height_max ||
-    typeof height_max !== "number" ||
+    typeof height_max !== 'number' ||
     height_max < 0 ||
-    typeof weight_min !== "number" ||
+    typeof weight_min !== 'number' ||
     weight_min < 0 ||
     weight_min > weight_max ||
-    typeof weight_max !== "number" ||
+    typeof weight_max !== 'number' ||
     weight_max < 0
   ) {
     return res
       .status(400)
       .send(
-        "Please send the mandatory information with valid input types or congruent information"
+        'Please send the mandatory information with valid input types or congruent information'
       );
   }
   // Validate typeof optional inputs if present
   if (
     (temperament && !Array.isArray(temperament)) ||
-    (image && typeof image !== "string") ||
-    (life_span && typeof life_span !== "number")
+    (image && typeof image !== 'string') ||
+    (life_span && typeof life_span !== 'number')
   ) {
     return res
       .status(400)
-      .send("Please send the optional information with valid input types");
+      .send('Please send the optional information with valid input types');
   }
 
   try {

@@ -1,12 +1,11 @@
-import React from "react";
-import "./App.css";
-import Navbar from "./components/Navbar.jsx";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getDogs, getTemps } from "./redux/actions";
-import { Route, Switch } from "react-router-dom";
-import Landing from "./components/Landing.jsx";
-import Dogs from "./components/Dogs.jsx";
+import React, { useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getDogs, getTemps } from './redux/actions';
+import Landing from './components/Landing.jsx';
+import Dogs from './components/Dogs.jsx';
+import DogDetail from './components/DogDetail.jsx';
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -17,16 +16,17 @@ function App() {
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getTemps());
-  }, [dispatch]);
+  });
 
   return (
-    <div className="App">
+    <div className='App'>
       <Switch>
-        <Route exact path="/" component={Landing} />
-        <>
-          <Navbar />
-          <Route exact path="/dogs" component={Dogs} />
-        </>
+        <Route exact path='/' component={Landing} />
+        <Route exact path='/dogs' component={Dogs} />
+        <Route exact path='/dogs/:id' component={DogDetail} />
+        <Route path='*'>
+          <h1>404</h1>
+        </Route>
       </Switch>
     </div>
   );
