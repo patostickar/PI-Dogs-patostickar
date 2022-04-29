@@ -24,7 +24,7 @@ const DogDetail = () => {
       //TODO LO QUE SUCEDA DENTRO DEL RETURN ES CUANDO SE DESMONTA EL COMPONENTE
       dispatch(clearPage());
     };
-  });
+  }, []);
 
   useEffect(() => {
     if (name) {
@@ -48,7 +48,7 @@ const DogDetail = () => {
           <p>Min: {h?.min || `-`}</p>
           <p>Max: {h?.max || `-`}</p>
           <ul>
-            {t.map((t) => (
+            {t?.map((t) => (
               <li key={t}>{t}</li>
             ))}
             <p>{id}</p>
