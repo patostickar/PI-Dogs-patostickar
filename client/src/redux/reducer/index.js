@@ -64,9 +64,10 @@ export default function reducer(state = initialState, { type, payload }) {
       return { ...state, temperaments: payload };
     },
     [SET_FAV]: () => {
+      console.log(payload);
       return {
         ...state,
-        favDogs: state.favDogs.filter((dog) => dog.id === payload.id)
+        favDogs: state.favDogs.find((dog) => dog.id === payload.id)
           ? [...state.favDogs]
           : [...state.favDogs, payload],
       };
@@ -74,7 +75,7 @@ export default function reducer(state = initialState, { type, payload }) {
     [DEL_FAV]: () => {
       return {
         ...state,
-        dodogDetail: state.favDogs.filter((dog) => dog.id !== payload.id),
+        favDogs: state.favDogs.filter((dog) => dog.id !== payload.id),
       };
     },
     [CLEAR_DETAIL_PAGE]: () => {
@@ -85,25 +86,32 @@ export default function reducer(state = initialState, { type, payload }) {
     },
     [SORT]: () => {
       let sortedDogs;
+      const dogsToSort = payload.pathname === '/dogs' ? 'dogs' : 'favDogs';
       if (payload.prop === 'name') {
         if (payload.direction === 'asc')
-          sortedDogs = state.dogs.sort((a, b) => a.name.localeCompare(b.name));
+          sortedDogs = state[dogsToSort].sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
         if (payload.direction === 'dsc')
-          sortedDogs = state.dogs.sort((a, b) => b.name.localeCompare(a.name));
+          sortedDogs = state[dogsToSort].sort((a, b) =>
+            b.name.localeCompare(a.name)
+          );
       }
 
       if (payload.prop === 'weight') {
         if (payload.direction === 'asc')
           // MIN-MAX taking only min as reference
-          sortedDogs = state.dogs.sort((a, b) => a.weight.min - b.weight.min);
+          sortedDogs = state[dogsToSort].sort(
+            (a, b) => a.weight.min - b.weight.min
+          );
         if (payload.direction === 'dsc')
           // MAX-MIN taking only max as reference (defaults to [0] in case of only one weight value)
-          sortedDogs = state.dogs.sort(
+          sortedDogs = state[dogsToSort].sort(
             (a, b) =>
               (b.weight.max || b.weight.min) - (a.weight.max || a.weight.min)
           );
       }
-      return { ...state, dogs: [...sortedDogs] };
+      return { ...state, [dogsToSort]: [...sortedDogs] };
     },
     // Because id has to be compared by typeof, I can't use the same filtering as with tempFilter
     [FILTER]: () => {
@@ -112,6 +120,8 @@ export default function reducer(state = initialState, { type, payload }) {
           return { ...state, dogs: [...state.dbDogs] };
         if (payload.value === 'API')
           return { ...state, dogs: [...state.apiDogs] };
+        if (payload.value === 'ALL')
+          return { ...state, dogs: [...state.dbDogs, ...state.apiDogs] };
       }
       // tempFilter
       return {

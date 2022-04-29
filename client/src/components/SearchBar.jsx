@@ -1,22 +1,23 @@
-import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getDogByName } from "../redux/actions";
-import styles from "./styles/SearchBar.modules.css";
+import React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getDogByName } from '../redux/actions';
+import styles from './styles/SearchBar.modules.css';
 
 export default function SearchBar() {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const dispatch = useDispatch();
+
   function handleChange(e) {
     setValue(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!validInput(value)) return console.log("invalid input");
-    if (!value) return console.log("empty search");
+    if (!validInput(value)) return console.log('invalid input');
+    if (!value) return console.log('empty search');
     dispatch(getDogByName(value));
-    setValue("");
+    setValue('');
   }
 
   function validInput(input) {
@@ -26,12 +27,12 @@ export default function SearchBar() {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type="text"
-        placeholder="Find a puppy.."
+        type='text'
+        placeholder='Find a puppy..'
         value={value}
         onChange={handleChange}
       />
-      <input type="submit" value="🔎" />
+      <input type='submit' value='🔎' />
     </form>
   );
 }

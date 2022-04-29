@@ -5,11 +5,10 @@ import Spinner from './Spinner';
 import Navbar from './Navbar';
 import DogCard from './DogCard';
 
-const Dogs = () => {
+const Main = () => {
   const dogs = useSelector((state) => state.dogs);
   const tempFilter = useSelector((state) => state.tempFilter);
   const [isLoading, setIsLoading] = useState(true);
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (dogs.length) {
@@ -34,24 +33,18 @@ const Dogs = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        dogs
-          .filter((dog) =>
-            tempFilter ? dog[tempFilter.key].includes(tempFilter.value) : true
-          )
-          .map((dog) => (
-            <DogCard
-              key={dog.id}
-              id={dog.id}
-              name={dog.name}
-              w_min={dog.weight.min}
-              w_max={dog.weight.max}
-              temperament={dog.temperament}
-              image={dog.image}
-            />
-          ))
+        <>
+          {dogs
+            .filter((dog) =>
+              tempFilter ? dog[tempFilter.key].includes(tempFilter.value) : true
+            )
+            .map((dog) => (
+              <DogCard dog={dog} key={dog.id} />
+            ))}
+        </>
       )}
     </>
   );
 };
 
-export default Dogs;
+export default Main;
