@@ -36,8 +36,9 @@ export function getDogDetail(id) {
     return axios
       .get(`${process.env.REACT_APP_BASE_URL}/dogs/${id}`)
       .then((res) => {
-        if (typeof res.data === 'object')
-          dispatch({ type: GET_DOG_DETAIL, payload: res.data }); // Dog found
+        if (typeof res.data === 'object') {
+          return dispatch({ type: GET_DOG_DETAIL, payload: res.data });
+        } // Dog found
         return dispatch({ type: GET_ALERT, payload: res.data }); // Dog not found
       })
       .catch((err) => console.log(err));

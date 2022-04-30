@@ -12,13 +12,15 @@ const Favourites = () => {
   return (
     <>
       <Navbar />
-      {!favDogs
-        ? "You don't have any favourite puppy 🐶"
-        : favDogs
-            .filter((dog) =>
-              tempFilter ? dog[tempFilter.key].includes(tempFilter.value) : true
-            )
-            .map((dog) => <DogCard dog={dog} key={dog.id} />)}
+      {!favDogs.length ? (
+        <h1>You don't have any favourite puppy 🐶</h1>
+      ) : (
+        favDogs
+          .filter((dog) =>
+            tempFilter ? dog[tempFilter.key].includes(tempFilter.value) : true
+          )
+          .map((dog) => <DogCard dog={dog} key={dog.id} />)
+      )}
     </>
   );
 };

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { getDogDetail, clearPage } from '../redux/actions';
 import Spinner from './Spinner';
 
 const DogDetail = () => {
   const { id } = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +20,7 @@ const DogDetail = () => {
   } = useSelector((state) => state.dogDetail);
 
   useEffect(() => {
-    dispatch(getDogDetail(Number(id)));
+    dispatch(getDogDetail(id));
     return () => {
       //TODO LO QUE SUCEDA DENTRO DEL RETURN ES CUANDO SE DESMONTA EL COMPONENTE
       dispatch(clearPage());
@@ -34,6 +35,7 @@ const DogDetail = () => {
 
   return (
     <>
+      <button onClick={history.goBack}>⬅️</button>
       {isLoading ? (
         <Spinner />
       ) : (
