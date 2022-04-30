@@ -64,7 +64,6 @@ export default function reducer(state = initialState, { type, payload }) {
       return { ...state, temperaments: payload };
     },
     [SET_FAV]: () => {
-      console.log(payload);
       return {
         ...state,
         favDogs: state.favDogs.find((dog) => dog.id === payload.id)
@@ -124,10 +123,15 @@ export default function reducer(state = initialState, { type, payload }) {
           return { ...state, dogs: [...state.dbDogs, ...state.apiDogs] };
       }
       // tempFilter
-      return {
-        ...state,
-        tempFilter: { key: payload.key, value: payload.value },
-      };
+      if (payload.key === 'temperament') {
+        if (payload.value === 'ALL') {
+          return { ...state, tempFilter: null };
+        }
+        return {
+          ...state,
+          tempFilter: { key: payload.key, value: payload.value },
+        };
+      }
     },
     [GET_ALERT]: () => {
       return { ...state, alertMessage: payload };

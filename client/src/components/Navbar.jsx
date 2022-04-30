@@ -10,7 +10,6 @@ import ClearFields from './ClearFields.jsx';
 function Navbar() {
   const dispatch = useDispatch();
   let { pathname } = useLocation();
-  console.log(pathname);
   return (
     <div>
       <SearchBar />

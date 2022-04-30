@@ -16,6 +16,7 @@ export default function Temperaments() {
   return (
     <select onChange={handleChange} value={value}>
       <option disabled>Temperaments</option>
+      <option value='ALL'>ALL</option>
       {temps?.map((t) => (
         <option value={t.name} key={t.id}>
           {t.name}
