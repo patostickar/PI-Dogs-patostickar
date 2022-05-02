@@ -6,6 +6,7 @@ import Landing from './components/Landing.jsx';
 import Main from './components/Main.jsx';
 import DogDetail from './components/DogDetail.jsx';
 import Favourites from './components/Favourites';
+import CreateDog from './components/CreateDog';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/' component={Landing} />
         <Route exact path='/dogs' component={Main} />
         <Route exact path='/dogs/:id' component={DogDetail} />
+        <Route exact path='/dog' component={CreateDog} />
         <Route exact path='/favourites' component={Favourites} />
         <Route path='*'>
           <h1>404</h1>

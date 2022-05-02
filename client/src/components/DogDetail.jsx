@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getDogDetail, clearPage } from '../redux/actions';
 import Spinner from './Spinner';
+import GoBackBtn from './GoBackBtn';
 
 const DogDetail = () => {
   const { id } = useParams();
-  const history = useHistory();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,7 +35,7 @@ const DogDetail = () => {
 
   return (
     <>
-      <button onClick={history.goBack}>⬅️</button>
+      <GoBackBtn />
       {isLoading ? (
         <Spinner />
       ) : (

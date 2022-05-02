@@ -19,6 +19,9 @@ function Navbar() {
       <Link to='/favourites'>
         <button>FAVS</button>
       </Link>
+      <Link to='/dog'>
+        <button>CREATE</button>
+      </Link>
       {pathname === '/dogs' ? (
         <>
           <button onClick={() => dispatch(filter('src', 'API', pathname))}>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Spinner from './Spinner';
 import Navbar from './Navbar';
+import GoBackBtn from './GoBackBtn';
 import DogCard from './DogCard';
 
 const Favourites = () => {
@@ -12,6 +11,7 @@ const Favourites = () => {
   return (
     <>
       <Navbar />
+      <GoBackBtn />
       {!favDogs.length ? (
         <h1>You don't have any favourite puppy 🐶</h1>
       ) : (
