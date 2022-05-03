@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_ALERT } from '../redux/actions';
-import { createDog } from '../redux/actions/createDog';
+import { createDog } from '../redux/actions/createDog.js';
+import { getDogs } from '../redux/actions';
+import Alert from './Alert';
 
 export default function Form() {
   const [input, setInput] = useState({
@@ -20,6 +23,7 @@ export default function Form() {
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
+  const alertMessage = useSelector((state) => state.alertMessage);
 
   // Hashmap of validations
   function validateInput(name, value) {
@@ -147,6 +151,7 @@ export default function Form() {
     );
 
     if (errorList.length) {
+      console.log('errors');
       return dispatch({ type: GET_ALERT, payload: errorList.join(' & ') });
     }
     const {
@@ -172,7 +177,8 @@ export default function Form() {
       dog.image =
         'https://media.ambito.com/p/ab2a83915e3c3e9fdc127a9f5cae866e/adjuntos/239/imagenes/038/976/0038976244/1200x1200/smart/dogejpg.jpg';
     if (life_span) dog.life_span = parseFloat(life_span);
-    return createDog(dog);
+    createDog(dog);
+    dispatch(getDogs());
   };
 
   // Check if input has been touched and if it has errors
@@ -190,6 +196,10 @@ export default function Form() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
+        {alertMessage && <Alert delay='3000' />}
+        <Link to='/dogs'>
+          <button>CLOSE</button>
+        </Link>
         <label>Name:</label>
         {/* Si hay errors.name se agrega la clase danger */}
         <input

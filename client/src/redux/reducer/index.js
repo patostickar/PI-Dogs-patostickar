@@ -5,6 +5,7 @@ import {
   GET_TEMPS,
   CLEAR_TEMPS,
   CLEAR_DETAIL_PAGE,
+  CLEAR_ALERT,
   SET_FAV,
   DEL_FAV,
   GET_ALERT,
@@ -51,7 +52,7 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         apiDogs: apiDogs,
         dbDogs: dbDogs,
-        dogs: [...apiDogs, ...dbDogs],
+        dogs: [...dbDogs, ...apiDogs],
       };
     },
     [GET_DOGS_BY_NAME]: () => {
@@ -135,6 +136,9 @@ export default function reducer(state = initialState, { type, payload }) {
     },
     [GET_ALERT]: () => {
       return { ...state, alertMessage: payload };
+    },
+    [CLEAR_ALERT]: () => {
+      return { ...state, alertMessage: '' };
     },
   };
   // same as case or default
