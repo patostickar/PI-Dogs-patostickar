@@ -177,8 +177,7 @@ export default function Form() {
       dog.image =
         'https://media.ambito.com/p/ab2a83915e3c3e9fdc127a9f5cae866e/adjuntos/239/imagenes/038/976/0038976244/1200x1200/smart/dogejpg.jpg';
     if (life_span) dog.life_span = parseFloat(life_span);
-    createDog(dog);
-    dispatch(getDogs());
+    dispatch(createDog(dog));
   };
 
   // Check if input has been touched and if it has errors

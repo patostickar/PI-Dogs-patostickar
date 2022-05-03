@@ -12,7 +12,11 @@ export default function Alert(props) {
       setVisible(false);
       dispatch(clearAlertMessage());
     }, props.delay);
-  }, [props.delay]);
+    // avoid memory leak error
+    return () => {
+      setVisible(false);
+    };
+  }, [dispatch, props.delay]);
 
   return visible ? <div>{alertMessage}</div> : <div />;
 }

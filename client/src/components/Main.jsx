@@ -4,11 +4,13 @@ import { useSelector } from 'react-redux';
 import Spinner from './Spinner';
 import Navbar from './Navbar';
 import DogCard from './DogCard';
+import Alert from './Alert';
 
 const Main = () => {
   const dogs = useSelector((state) => state.dogs);
   const tempFilter = useSelector((state) => state.tempFilter);
   const [isLoading, setIsLoading] = useState(true);
+  const alertMessage = useSelector((state) => state.alertMessage);
 
   useEffect(() => {
     if (dogs.length) {
@@ -34,6 +36,7 @@ const Main = () => {
         <Spinner />
       ) : (
         <>
+          {alertMessage && <Alert delay='3000' />}
           {dogs
             .filter((dog) =>
               tempFilter ? dog[tempFilter.key].includes(tempFilter.value) : true
