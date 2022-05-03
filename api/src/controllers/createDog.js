@@ -28,6 +28,8 @@ module.exports.createDog = async (req, res, next) => {
     life_span,
   } = req.body;
 
+  console.log(req.body);
+
   // Validate presence, typeof and constraints of mandatory inputs
   if (!name || !height_min || !height_max || !weight_min || !weight_max) {
     return res.status(400).send('Please send all the mandatory information');
@@ -36,15 +38,15 @@ module.exports.createDog = async (req, res, next) => {
     typeof name !== 'string' ||
     !/^[a-zA-Z ]*$/.test(name) ||
     typeof height_min !== 'number' ||
-    height_min < 0 ||
+    height_min <= 0 ||
     height_min > height_max ||
     typeof height_max !== 'number' ||
-    height_max < 0 ||
+    height_max <= 0 ||
     typeof weight_min !== 'number' ||
-    weight_min < 0 ||
+    weight_min <= 0 ||
     weight_min > weight_max ||
     typeof weight_max !== 'number' ||
-    weight_max < 0
+    weight_max <= 0
   ) {
     return res
       .status(400)
@@ -53,10 +55,16 @@ module.exports.createDog = async (req, res, next) => {
       );
   }
   // Validate typeof optional inputs if present
+
+  const findDuplicates = (arr) => arr.filter((v, i) => arr.indexOf(v) !== i);
+  console.log(!!temperament);
   if (
-    (temperament && !Array.isArray(temperament)) ||
+    (temperament &&
+      (!Array.isArray(temperament) ||
+        findDuplicates(temperament).length !== 0)) ||
     (image && typeof image !== 'string') ||
-    (life_span && typeof life_span !== 'number')
+    (life_span !== undefined &&
+      (typeof life_span !== 'number' || life_span <= 0))
   ) {
     return res
       .status(400)
