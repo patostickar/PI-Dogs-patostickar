@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_ALERT } from '../redux/actions';
 import { createDog } from '../redux/actions/createDog.js';
-import { getDogs } from '../redux/actions';
 import Alert from './Alert';
 
 export default function Form() {
@@ -28,7 +27,8 @@ export default function Form() {
   // Hashmap of validations
   function validateInput(name, value) {
     const inputs = {
-      // if any condition is true = invalid
+      // if any condition is true --> invalid response
+      // inputs are sent as strings (HTMl behaviour)
       name: (value) => {
         return typeof value !== 'string' || !/^[a-zA-Z ]*$/.test(value);
       },
@@ -45,7 +45,8 @@ export default function Form() {
         return +value <= 0 || !Number.isInteger(+value);
       },
       life_span: (value) => {
-        return +value < 0 || !Number.isInteger(+value);
+        if (value === '') return;
+        return +value <= 0 || !Number.isInteger(+value);
       },
       image: (value) => {
         return value !== ''
@@ -128,13 +129,11 @@ export default function Form() {
   // Set state of input value and errors if any
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setErrors({ ...errors, [name]: validateInput(name, value) });
     setInput({ ...input, [name]: value });
   };
 
   // Validate everything onSubmit (in case it is submitted before any interactions)
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
