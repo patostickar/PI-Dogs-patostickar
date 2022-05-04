@@ -27,7 +27,8 @@ export default function SearchBar() {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type='text'
+        type='search'
+        autocomplete='off'
         placeholder='Find a puppy..'
         value={value}
         onChange={handleChange}

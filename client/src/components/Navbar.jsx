@@ -11,7 +11,7 @@ function Navbar() {
   const dispatch = useDispatch();
   let { pathname } = useLocation();
   return (
-    <div>
+    <nav>
       <SearchBar />
       <Link to='/dogs'>
         <button>HOME</button>
@@ -49,7 +49,7 @@ function Navbar() {
       </button>
       <Temperaments />
       <ClearFields />
-    </div>
+    </nav>
   );
 }
 

@@ -1,32 +1,190 @@
+@import '../../index.css';
+
+.container {
+  background-color: var(--color-background);
+  height: 100vh;
+  background-image: url(../../img/landing.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 80%;
+}
+
 p {
-  color: #969696;
+  color: var(--gray-text);
   font-weight: 600;
 }
 
+.welcome {
+  font-size: 2em;
+}
+
+.text_container {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-100%) translateY(40%);
+  max-width: 40%;
+}
+
+.find {
+  padding-left: 10px;
+  border-left: 3px solid var(--gray-text);
+  margin-left: 2px;
+  font-size: 1.5em;
+  max-width: 300px;
+}
+
 .title {
-  font-family: "Sen", sans-serif;
+  font-family: var(--title-font);
   font-weight: 800;
   font-size: 3em;
 }
 
+/* Buttons */
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+  margin-right: 1em;
+}
+
+button.learn_more {
+  height: auto;
+}
+
+button.learn_more .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem;
+  height: 3rem;
+  background: var(--button-background);
+  border-radius: 1.625rem;
+}
+
+button.learn_more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: var(--white);
+}
+
+button.learn_more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+button.learn_more .circle .icon.arrow::before {
+  position: absolute;
+  content: '';
+  top: -0.29rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid var(--white);
+  border-right: 0.125rem solid var(--white);
+  transform: rotate(45deg);
+}
+
+button.learn_more .button_text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75rem 0;
+  margin: 0 0 0 1.85rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+button:hover .circle {
+  width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+  background: var(--white);
+  transform: translate(1rem, 0);
+}
+
+button:hover .button_text {
+  color: var(--white);
+}
+
+.takeme {
+  width: 11em;
+}
+
+.lucky {
+  width: 15em;
+}
+
+/*COUNTER*/
 @property --num {
-  syntax: "<integer>";
+  syntax: '<integer>';
   inherits: false;
   initial-value: 0;
 }
 
 .nums {
-  /* animation: counter 5s infinite alternate ease-in-out; */
+  position: relative;
   animation-name: counter;
   animation-duration: 5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
   counter-reset: num var(--num);
-  font: 800 40px system-ui;
-  padding: 2rem;
+  margin-bottom: 25px;
 }
-.nums::after {
+
+.nums::before {
+  width: 3em;
+  font: 800 2.5em system-ui;
   content: counter(num);
+  color: #555555;
+  border: 2px solid #555555;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10%;
+  transition-duration: 0.4s;
+}
+
+.nums:hover::before {
+  color: #fdfcfa;
+  background-color: #555555;
+}
+
+.nums::after {
+  position: absolute;
+  content: ' Puppies available';
+  color: #555555;
+  font-weight: 600;
+  padding-left: 10px;
+  margin-left: 2px;
+  font-size: 1.3em;
+  max-width: 300px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 @keyframes counter {
@@ -36,4 +194,11 @@ p {
   to {
     --num: 174;
   }
+}
+
+.footer {
+  position: absolute;
+  bottom: 2%;
+  width: 100%;
+  text-align: center;
 }

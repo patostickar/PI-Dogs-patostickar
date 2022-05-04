@@ -114,6 +114,8 @@ export default function reducer(state = initialState, { type, payload }) {
       return { ...state, [dogsToSort]: [...sortedDogs] };
     },
     // Because id has to be compared by typeof, I can't use the same filtering as with tempFilter
+    // Si pudiera usar un item desde la DB que indicase que sí es creado, podría incluirlo en los filtros de temperaments
+    // Entiendo no estaba permitido
     [FILTER]: () => {
       if (payload.key === 'src') {
         if (payload.value === 'DB')

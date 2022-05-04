@@ -1,9 +1,9 @@
-require("dotenv").config();
+require('dotenv').config();
 const { API_KEY } = process.env;
-const { Dog, Temperament } = require("../db");
-const axios = require("axios");
-const { Op } = require("sequelize");
-const { simpleDogData } = require("../utils/simpleDogData");
+const { Dog, Temperament } = require('../db');
+const axios = require('axios');
+const { Op } = require('sequelize');
+const { simpleDogData } = require('../utils/simpleDogData');
 
 module.exports.getDogsByName = async (name) => {
   // API Dogs
@@ -31,6 +31,7 @@ module.exports.getDogsByName = async (name) => {
       }
     : {
         include: Temperament,
+        order: [['createdAt', 'DESC']],
       };
   dbDogs = Dog.findAll(condition);
 
@@ -40,5 +41,5 @@ module.exports.getDogsByName = async (name) => {
     dbDogs,
   ]);
 
-  return [...simpleDogData(apiDogsData), ...simpleDogData(dbDogsData)];
+  return [...simpleDogData(dbDogsData), ...simpleDogData(apiDogsData)];
 };

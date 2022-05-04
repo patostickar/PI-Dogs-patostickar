@@ -268,7 +268,7 @@ export default function Form() {
         <label>Image URL:</label>
         {/* Si hay errors.name se agrega la clase danger */}
         <input
-          type='text'
+          type='url'
           name='image'
           placeholder='Provide a valid image URL'
           value={input.image}
@@ -281,7 +281,6 @@ export default function Form() {
         <label>Choose</label>
         <select multiple onChange={handleTempList}>
           <option disabled>Temperaments</option>
-          <option>None</option>
           {temps?.map((t) => (
             <option value={t.name} key={t.id}>
               {t.name}

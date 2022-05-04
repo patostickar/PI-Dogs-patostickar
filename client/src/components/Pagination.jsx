@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import style from './styles/Pagination.module.css';
 
 const Pagination = ({ dogsPerPage, totalDogs, paginate }) => {
   const pageNumbers = [];
@@ -20,7 +21,7 @@ const Pagination = ({ dogsPerPage, totalDogs, paginate }) => {
   const totalList = Math.ceil(pageNumbers.length / buttonsPerList);
 
   return (
-    <nav>
+    <footer>
       <ul className='pagination'>
         <li>
           <button
@@ -46,7 +47,7 @@ const Pagination = ({ dogsPerPage, totalDogs, paginate }) => {
           </button>
         </li>
       </ul>
-    </nav>
+    </footer>
   );
 };
 

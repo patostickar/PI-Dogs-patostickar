@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import DogCard from './DogCard';
 import Pagination from './Pagination';
 import Alert from './Alert';
+import style from './styles/Main.module.css';
 
 const Main = () => {
   const dogs = useSelector((state) => state.dogs);
@@ -22,10 +23,15 @@ const Main = () => {
     setCurrentPage(1);
   }, [dogs]);
 
-  // Get current Dogs
+  // Indexes for pagination
   const indexOfLastDog = currentPage * dogsPerPage; // 8 - 16 - 24
   const indexOfFirstDog = indexOfLastDog - dogsPerPage; // 0 - 8 - 16
-  const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog); // 0-8, 8-16, 16-24
+  // Filter by temperaments
+  const filteredDogs = dogs.filter((dog) =>
+    tempFilter ? dog[tempFilter.key].includes(tempFilter.value) : true
+  );
+  // Slice the filtered dogs array
+  const currentDogs = filteredDogs.slice(indexOfFirstDog, indexOfLastDog); // 0-8, 8-16, 16-24
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -38,17 +44,14 @@ const Main = () => {
       ) : (
         <>
           {alertMessage && <Alert delay='3000' />}
-          {currentDogs
-            .filter((dog) =>
-              tempFilter ? dog[tempFilter.key].includes(tempFilter.value) : true
-            )
-            .map((dog) => (
+          <main className={style.main}>
+            {currentDogs.map((dog) => (
               <DogCard dog={dog} key={dog.id} />
             ))}
-
+          </main>
           <Pagination
             dogsPerPage={dogsPerPage}
-            totalDogs={dogs.length}
+            totalDogs={filteredDogs.length}
             paginate={paginate}
           />
         </>
