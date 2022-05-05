@@ -1,0 +1,22 @@
+.App {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.App::after {
+  background-image: url('./img/dog-fingreprint.jpg');
+  min-height: 100vh;
+  z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.45;
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-color: #fdfcfa;
+  background-blend-mode: color-burn;
+}

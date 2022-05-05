@@ -1,0 +1,62 @@
+/* Navbar container */
+.navbar {
+  display: flex;
+  background-color: #d5ac6ed1;
+  justify-content: center;
+  font-weight: 500;
+}
+
+/* Links inside the navbar */
+.navbar p {
+  color: white;
+  padding: 14px 16px;
+  margin: 0;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  color: white;
+  font-weight: 500;
+  padding: 14px 16px;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+.fa {
+  margin-left: 10px;
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar p:hover,
+.dropdown:hover .dropbtn {
+  background-color: #ddd;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown_content button {
+  padding: 12px 16px;
+  display: block;
+  text-align: left;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown_content button:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown_content {
+  display: block;
+}

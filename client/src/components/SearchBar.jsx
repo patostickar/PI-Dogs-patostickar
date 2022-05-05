@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getDogByName } from '../redux/actions';
-import styles from './styles/SearchBar.modules.css';
+import style from './styles/SearchBar.module.css';
 
 export default function SearchBar() {
   const [value, setValue] = useState('');
@@ -25,15 +25,16 @@ export default function SearchBar() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id={style.form}>
       <input
         type='search'
-        autocomplete='off'
+        autoComplete='off'
         placeholder='Find a puppy..'
         value={value}
         onChange={handleChange}
+        className={style.searchInput}
       />
-      <input type='submit' value='🔎' />
+      <i class={`fa-solid fa-magnifying-glass ${style.fa}`}></i>
     </form>
   );
 }

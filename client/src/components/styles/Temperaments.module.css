@@ -1,0 +1,21 @@
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: white;
+  font-weight: 500;
+  padding: 14px 16px;
+  font-family: inherit;
+  margin: 0;
+}
+
+.option {
+  color: black;
+}
+
+.fa {
+  color: white;
+  position: absolute;
+  top: 15px;
+  right: 8px;
+}

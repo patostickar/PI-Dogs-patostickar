@@ -11,7 +11,10 @@ module.exports.simpleDogData = (dogData) => {
         dog?.temperament?.split(', ') ||
         dog.dataValues?.Temperaments.map((t) => t.dataValues.name) ||
         [],
-      image: dog?.image?.url || dog?.image,
+      image:
+        dog?.image?.url ||
+        dog?.image ||
+        `https://cdn2.thedogapi.com/images/${dog?.reference_image_id}.jpg`,
     };
   });
 };

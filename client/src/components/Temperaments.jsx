@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filter } from '../redux/actions';
+import style from './styles/Temperaments.module.css';
 
 export default function Temperaments() {
   const temps = useSelector((state) => state.temperaments);
@@ -14,14 +15,21 @@ export default function Temperaments() {
   }
 
   return (
-    <select onChange={handleChange} value={value}>
-      <option disabled>Temperaments</option>
-      <option value='ALL'>ALL</option>
-      {temps?.map((t) => (
-        <option value={t.name} key={t.id}>
-          {t.name}
+    <button>
+      <select onChange={handleChange} value={value} className={style.select}>
+        <option disabled className={style.option}>
+          Temperaments
         </option>
-      ))}
-    </select>
+        <option value='ALL' className={style.option}>
+          ALL
+        </option>
+        {temps?.map((t) => (
+          <option value={t.name} key={t.id} className={style.option}>
+            {t.name}
+          </option>
+        ))}
+      </select>
+      <i className={`fa-solid fa-caret-down ${style.fa}`}></i>
+    </button>
   );
 }

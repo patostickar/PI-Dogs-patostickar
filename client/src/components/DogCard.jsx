@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setFav, delFav } from '../redux/actions';
 import style from './styles/DogCard.module.css';
 import redFilledHeart from '../img/redFilledHeart.png';
 import grayHeart from '../img/grayHeart.png';
+import fallbackImg from '../img/fallbackImg.jpg';
 
 const DogCard = ({ dog }) => {
   const { id, name, weight: w, temperament: t, image } = dog;
-  const [isFav, setFavState] = useState(false);
+  const favs = useSelector((state) => state.favDogs);
   const dispatch = useDispatch();
+
+  const fav = !!favs?.filter((d) => d.id === id).length;
+  const [isFav, setFavState] = useState(fav);
 
   function favToggle() {
     isFav ? dispatch(delFav(dog)) : dispatch(setFav(dog));
@@ -17,10 +21,13 @@ const DogCard = ({ dog }) => {
   }
   return (
     <article className={style.card}>
-      <div
-        className={style.thumb}
-        style={{ backgroundImage: `url(${image})` }}
-      />
+      <div className={style.thumb}>
+        <img
+          src={image}
+          alt=''
+          onError={(e) => (e.currentTarget.src = fallbackImg)}
+        />
+      </div>
       <div className={style.infos}>
         <h2 className={style.title}>
           {name}
@@ -53,11 +60,11 @@ const DogCard = ({ dog }) => {
         <div className={style.weight}>
           <div className={style.weight_info}>
             <p>Min</p>
-            <p className={style.num}>{`${w.min} kg` || `-`}</p>
+            <p className={style.num}>{`${w.min || `?`} kg`}</p>
           </div>
           <div className={style.weight_info}>
             <p>Max</p>
-            <p className={style.num}>{`${w.max} kg` || `-`}</p>
+            <p className={style.num}>{`${w.max || `?`} kg`}</p>
           </div>
         </div>
         <Link to={`/dogs/${id}`}>

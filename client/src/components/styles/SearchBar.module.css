@@ -1,0 +1,34 @@
+form {
+  position: relative;
+  flex: 0.1;
+  transition: all 0.3s ease-out;
+}
+
+form:focus-within {
+  flex-grow: 0.5;
+}
+form:focus-within .searchInput {
+  border: 2px solid var(--button-background);
+}
+form:focus-within > i {
+  color: var(--button-background);
+  left: 13px;
+}
+
+.searchInput {
+  width: 100%;
+  /* min-width: 150px; */
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  outline: none;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 12px 2em;
+}
+
+.fa {
+  position: absolute;
+  left: 26px;
+  top: 15px;
+  color: gray;
+}

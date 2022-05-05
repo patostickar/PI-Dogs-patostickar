@@ -6,50 +6,69 @@ import { useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import Temperaments from './Temperaments';
 import ClearFields from './ClearFields.jsx';
+import style from './styles/Navbar.module.css';
 
 function Navbar() {
   const dispatch = useDispatch();
   let { pathname } = useLocation();
   return (
-    <nav>
-      <SearchBar />
+    <div className={style.navbar}>
+      <Link to='/'>
+        <p>Home</p>
+      </Link>
       <Link to='/dogs'>
-        <button>HOME</button>
+        <p>Dogs</p>
       </Link>
       <Link to='/favourites'>
-        <button>FAVS</button>
+        <p>Favourites</p>
       </Link>
       <Link to='/dog'>
-        <button>CREATE</button>
+        <p>Create</p>
       </Link>
-      {pathname === '/dogs' ? (
-        <>
-          <button onClick={() => dispatch(filter('src', 'API', pathname))}>
-            API
-          </button>
-          <button onClick={() => dispatch(filter('src', 'DB', pathname))}>
-            DB
-          </button>
-          <button onClick={() => dispatch(filter('src', 'ALL', pathname))}>
-            ALL
-          </button>
-        </>
-      ) : null}
-      <button onClick={() => dispatch(sort('dsc', 'name', pathname))}>
-        DSC N
-      </button>
-      <button onClick={() => dispatch(sort('asc', 'name', pathname))}>
-        ASC N
-      </button>
-      <button onClick={() => dispatch(sort('asc', 'weight', pathname))}>
-        ASC W
-      </button>
-      <button onClick={() => dispatch(sort('dsc', 'weight', pathname))}>
-        DSC W
-      </button>
-      <Temperaments />
+      <SearchBar />
       <ClearFields />
-    </nav>
+      <div className={style.dropdown}>
+        <button className={style.dropbtn}>
+          Sort
+          <i className={`fa-solid fa-caret-down ${style.fa}`}></i>
+        </button>
+        <div className={style.dropdown_content}>
+          <button onClick={() => dispatch(sort('asc', 'name', pathname))}>
+            Name A-Z
+          </button>
+          <button onClick={() => dispatch(sort('dsc', 'name', pathname))}>
+            Name Z-A
+          </button>
+          <button onClick={() => dispatch(sort('dsc', 'weight', pathname))}>
+            Weight ⬇️
+          </button>
+          <button onClick={() => dispatch(sort('asc', 'weight', pathname))}>
+            Weight ⬆️
+          </button>
+        </div>
+      </div>
+
+      {pathname === '/dogs' ? (
+        <div className={style.dropdown}>
+          <button className={style.dropbtn}>
+            Source
+            <i className={`fa-solid fa-caret-down ${style.fa}`}></i>
+          </button>
+          <div className={style.dropdown_content}>
+            <button onClick={() => dispatch(filter('src', 'API', pathname))}>
+              API
+            </button>
+            <button onClick={() => dispatch(filter('src', 'DB', pathname))}>
+              DB
+            </button>
+            <button onClick={() => dispatch(filter('src', 'ALL', pathname))}>
+              All
+            </button>
+          </div>
+        </div>
+      ) : null}
+      <Temperaments />
+    </div>
   );
 }
 

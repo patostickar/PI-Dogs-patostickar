@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { getDogs, clearTemperaments } from '../redux/actions';
-import styles from './styles/ClearFields.module.css';
+import style from './styles/ClearFields.module.css';
 
 export default function ClearFields() {
   const dispatch = useDispatch();
@@ -10,8 +10,10 @@ export default function ClearFields() {
     dispatch(clearTemperaments());
   }
   return (
-    <button style={styles.button} onClick={clearFields}>
-      🧹
+    <button className={style.button} onClick={clearFields}>
+      <div>
+        <i className={`fa-solid fa-trash-can ${style.fa}`} />
+      </div>
     </button>
   );
 }
