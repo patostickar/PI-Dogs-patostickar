@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getDogDetail, clearPage } from '../redux/actions';
 import Spinner from './Spinner';
+import Navbar from './Navbar.jsx';
 import GoBackBtn from './GoBackBtn';
 
 const DogDetail = () => {
@@ -25,7 +26,7 @@ const DogDetail = () => {
       //TODO LO QUE SUCEDA DENTRO DEL RETURN ES CUANDO SE DESMONTA EL COMPONENTE
       dispatch(clearPage());
     };
-  }, []);
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (name) {
@@ -35,6 +36,7 @@ const DogDetail = () => {
 
   return (
     <>
+      <Navbar />
       <GoBackBtn />
       {isLoading ? (
         <Spinner />

@@ -34,7 +34,7 @@ export default function SearchBar() {
         onChange={handleChange}
         className={style.searchInput}
       />
-      <i class={`fa-solid fa-magnifying-glass ${style.fa}`}></i>
+      <i className={`fa-solid fa-magnifying-glass ${style.fa}`}></i>
     </form>
   );
 }

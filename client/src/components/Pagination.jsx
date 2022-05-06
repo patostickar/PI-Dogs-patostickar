@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import style from './styles/Pagination.module.css';
 
-const Pagination = ({ dogsPerPage, totalDogs, paginate }) => {
+const Pagination = ({ dogsPerPage, totalDogs, paginate, currentPage }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalDogs / dogsPerPage); i++) {
     pageNumbers.push(i);
@@ -22,31 +22,36 @@ const Pagination = ({ dogsPerPage, totalDogs, paginate }) => {
 
   return (
     <footer>
-      <ul className='pagination'>
-        <li>
-          <button
-            disabled={currentList === 1 ? true : false}
-            onClick={() => setCurrentList(currentList - 1)}
-          >
-            ⬅️
-          </button>
-        </li>
-        {currentButtons.map((number) => (
-          <li key={number} className='page-item'>
-            <button onClick={() => paginate(number)} className='page-link'>
-              {number}
+      <div className={style.pagination}>
+        <ul>
+          <li>
+            <button
+              disabled={currentList === 1 ? true : false}
+              onClick={() => setCurrentList(currentList - 1)}
+            >
+              <i className='fa-solid fa-angle-left'></i>
             </button>
           </li>
-        ))}
-        <li>
-          <button
-            disabled={currentList === totalList ? true : false}
-            onClick={() => setCurrentList(currentList + 1)}
-          >
-            ➡️
-          </button>
-        </li>
-      </ul>
+          {currentButtons.map((number) => (
+            <li key={number}>
+              <button
+                onClick={() => paginate(number)}
+                className={number === currentPage ? style.active : null}
+              >
+                {number}
+              </button>
+            </li>
+          ))}
+          <li>
+            <button
+              disabled={currentList === totalList ? true : false}
+              onClick={() => setCurrentList(currentList + 1)}
+            >
+              <i className='fa-solid fa-angle-right'></i>
+            </button>
+          </li>
+        </ul>
+      </div>
     </footer>
   );
 };

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_ALERT } from '../redux/actions';
 import { createDog } from '../redux/actions/createDog.js';
-import Alert from './Alert';
+import Navbar from './Navbar.jsx';
+import style from './styles/CreateDog.module.css';
 
 export default function Form() {
   const [input, setInput] = useState({
@@ -19,10 +19,11 @@ export default function Form() {
     temperament: [],
   });
   const temps = useSelector((state) => state?.temperaments);
+  const alert = useSelector((state) => state?.alertMessage);
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-  const alertMessage = useSelector((state) => state.alertMessage);
+  // const alertMessage = useSelector((state) => state.alertMessage);
 
   // Hashmap of validations
   function validateInput(name, value) {
@@ -179,134 +180,237 @@ export default function Form() {
     dispatch(createDog(dog));
   };
 
+  useEffect(() => {
+    if (/created/.test(alert))
+      setInput({
+        name: '',
+        height_min: '',
+        height_max: '',
+        weight_min: '',
+        weight_max: '',
+        life_span: '',
+        image: '',
+        temperamentList: [],
+        temperamentInput: '',
+        temperament: [],
+      });
+  }, [alert]);
+
   // Check if input has been touched and if it has errors
   // Differentiate if error is false or hasn't been checked
-  const setCheckOrCross = (input) => {
+  const icon = (input) => {
     return touched[input] // touched?
       ? errors[input] // has errors?
-        ? '❌'
+        ? `fa-solid fa-xmark ${style.xmark}`
         : errors.hasOwnProperty(input) && errors[input] === false // no error or empty?
-        ? '✅'
+        ? `fa-solid fa-check ${style.check}`
         : null
       : null;
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        {alertMessage && <Alert delay='3000' />}
-        <Link to='/dogs'>
-          <button>CLOSE</button>
-        </Link>
-        <label>Name:</label>
-        {/* Si hay errors.name se agrega la clase danger */}
-        <input
-          type='text'
-          name='name'
-          value={input.name}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleOnBlur(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('name')}
-        <label>Min Height:</label>
-        {/* Si hay errors.name se agrega la clase danger */}
-        <input
-          type='number'
-          name='height_min'
-          min='0'
-          value={input.height_min}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleOnBlur(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('height_min')}
-        <label>Max Height:</label>
-        <input
-          type='number'
-          name='height_max'
-          min='0'
-          value={input.height_max}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleOnBlur(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('height_max')}
-        <label>Min Weight:</label>
-        <input
-          type='number'
-          name='weight_min'
-          min='0'
-          value={input.weight_min}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleOnBlur(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('weight_min')}
-        <label>Max Weight:</label>
-        <input
-          type='number'
-          name='weight_max'
-          min='0'
-          value={input.weight_max}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleOnBlur(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('weight_max')}
-        <label>Life Span:</label>
-        <input
-          type='number'
-          name='life_span'
-          min='0'
-          value={input.life_span}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleOnBlur(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('life_span')}
-        <label>Image URL:</label>
-        {/* Si hay errors.name se agrega la clase danger */}
-        <input
-          type='url'
-          name='image'
-          placeholder='Provide a valid image URL'
-          value={input.image}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleOnBlur(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('image')}
-        <label>Temperaments:</label>
-        <label>Choose</label>
-        <select multiple onChange={handleTempList}>
-          <option disabled>Temperaments</option>
-          {temps?.map((t) => (
-            <option value={t.name} key={t.id}>
-              {t.name}
-            </option>
-          ))}
-        </select>
-        <label>or create</label>
-        {/* Si hay errors.name se agrega la clase danger */}
-        <input
-          type='text'
-          name='temperamentInput'
-          placeholder='Add separated by comma'
-          value={input.temperamentInput}
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleTempInput(e)}
-        />
-        {/* Si hay errrs.name se agrega un elemento p */}
-        {setCheckOrCross('temperamentInput')}
-        <p>Selected:</p>
-        <ul>
-          {input.temperament.map((t) => (
-            <li key={t}>{t}</li>
-          ))}
-        </ul>
-        <button type='submit'>Enviar</button>
+    <>
+      <Navbar />
+      <div className={style.container}>
+        <div className={style.picture}></div>
+        <div className={style.inputs}>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label className={style.label} htmlFor='name'>
+                Name:
+              </label>
+              <div className={style.row}>
+                <div className={style.inputBox}>
+                  <input
+                    className={style.input}
+                    type='text'
+                    name='name'
+                    id='name'
+                    placeholder='Shiba Inu *'
+                    value={input.name}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={(e) => handleOnBlur(e)}
+                  ></input>
+                  <i className={icon('name')}></i>
+                  {/* Si hay errrs.name se agrega un elemento p */}
+                </div>
+              </div>
+
+              <label className={style.label} htmlFor='height_min'>
+                Height:
+              </label>
+              <div className={style.row}>
+                {/* Si hay errors.name se agrega la clase danger */}
+                <div className={style.inputBox}>
+                  <input
+                    className={style.input}
+                    type='number'
+                    name='height_min'
+                    id='height_min'
+                    placeholder='Min *'
+                    min='0'
+                    value={input.height_min}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={(e) => handleOnBlur(e)}
+                  />
+                  {/* Si hay errrs.name se agrega un elemento p */}
+                  <i className={icon('height_min')}></i>
+                </div>
+                <div className={style.inputBox}>
+                  <input
+                    className={style.input}
+                    type='number'
+                    name='height_max'
+                    id='height_max'
+                    placeholder='Max *'
+                    min='0'
+                    value={input.height_max}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={(e) => handleOnBlur(e)}
+                  />
+                  {/* Si hay errrs.name se agrega un elemento p */}
+                  <i className={icon('height_max')}></i>
+                </div>
+              </div>
+
+              <label className={style.label} htmlFor='weight_min'>
+                Weight:
+              </label>
+              <div className={style.row}>
+                <div className={style.inputBox}>
+                  <input
+                    className={style.input}
+                    type='number'
+                    name='weight_min'
+                    id='weight_min'
+                    placeholder='Min *'
+                    min='0'
+                    value={input.weight_min}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={(e) => handleOnBlur(e)}
+                  />
+                  {/* Si hay errrs.name se agrega un elemento p */}
+                  <i className={icon('weight_min')}></i>
+                </div>
+                <div className={style.inputBox}>
+                  <input
+                    className={style.input}
+                    type='number'
+                    name='weight_max'
+                    id='weight_max'
+                    placeholder='Max *'
+                    min='0'
+                    value={input.weight_max}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={(e) => handleOnBlur(e)}
+                  />
+                  {/* Si hay errrs.name se agrega un elemento p */}
+                  <i className={icon('weight_max')}></i>
+                </div>
+              </div>
+
+              <label className={style.label} htmlFor='life_span'>
+                Life Span:
+              </label>
+              <div className={style.row}>
+                <div className={style.inputBox}>
+                  <input
+                    className={style.input}
+                    type='number'
+                    name='life_span'
+                    id='life_span'
+                    placeholder='1 - 99'
+                    min='1'
+                    value={input.life_span}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={(e) => handleOnBlur(e)}
+                  />
+                  {/* Si hay errrs.name se agrega un elemento p */}
+                  <i className={icon('life_span')}></i>
+                </div>
+              </div>
+
+              <label className={style.label} htmlFor='image'>
+                Image URL:
+              </label>
+              <div className={style.row}>
+                {/* Si hay errors.name se agrega la clase danger */}
+                <div className={style.inputBox}>
+                  <input
+                    className={style.input}
+                    type='url'
+                    name='image'
+                    id='image'
+                    placeholder='Provide a valid image URL'
+                    value={input.image}
+                    onChange={(e) => handleChange(e)}
+                    onBlur={(e) => handleOnBlur(e)}
+                  />
+                  {/* Si hay errrs.name se agrega un elemento p */}
+                  <i className={icon('image')}></i>
+                </div>
+              </div>
+
+              <label className={style.label}>Temperaments</label>
+              <div className={style.row}>
+                <div className={style.col}>
+                  <label className={style.label}>Choose:</label>
+                  <select
+                    className={style.select}
+                    multiple
+                    onChange={handleTempList}
+                  >
+                    {temps?.map((t) => (
+                      <option value={t.name} key={t.id}>
+                        {t.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className={style.col}>
+                  <label className={style.label} htmlFor='temperamentInput'>
+                    Or create:
+                  </label>
+                  {/* Si hay errors.name se agrega la clase danger */}
+                  <div className={style.inputBox}>
+                    <input
+                      className={style.input}
+                      type='text'
+                      name='temperamentInput'
+                      id='temperamentInput'
+                      placeholder='Add separated by comma'
+                      value={input.temperamentInput}
+                      onChange={(e) => handleChange(e)}
+                      onBlur={(e) => handleTempInput(e)}
+                    />
+                    {/* Si hay errrs.name se agrega un elemento p */}
+                    <i
+                      className={icon('temperamentInput')}
+                      style={{ top: '14px' }}
+                    ></i>
+                  </div>
+                </div>
+              </div>
+
+              <div className={style.row}>
+                <ul>
+                  {input.temperament.map((t) => (
+                    <li key={t} className={style.temperaments}>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <input
+                type='submit'
+                value='Create'
+                className={style.input}
+              ></input>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
+    </>
   );
 }

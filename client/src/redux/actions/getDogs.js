@@ -14,7 +14,10 @@ export function getDogs() {
     return axios
       .get(`${process.env.REACT_APP_BASE_URL}/dogs`)
       .then((res) => dispatch({ type: GET_DOGS, payload: res.data }))
-      .catch((err) => alert(err.response.data));
+      .catch((err) => {
+        dispatch({ type: GET_ALERT, payload: err.message });
+        console.log(err);
+      });
   };
 }
 
@@ -27,7 +30,10 @@ export function getDogByName(name) {
           return dispatch({ type: GET_DOGS_BY_NAME, payload: res.data }); // Dog found
         return dispatch({ type: GET_ALERT, payload: res.data }); // Dog not found
       })
-      .catch((err) => alert(err.response.data));
+      .catch((err) => {
+        dispatch({ type: GET_ALERT, payload: err.message });
+        console.log(err);
+      });
   };
 }
 
@@ -41,7 +47,10 @@ export function getDogDetail(id) {
         } // Dog found
         return dispatch({ type: GET_ALERT, payload: res.data }); // Dog not found
       })
-      .catch((err) => alert(err.response.data));
+      .catch((err) => {
+        dispatch({ type: GET_ALERT, payload: err.message });
+        console.log(err);
+      });
   };
 }
 
@@ -60,7 +69,8 @@ export const getTemps = () => {
       const temps = res.data.sort((a, b) => a.name.localeCompare(b.name));
       return dispatch({ type: GET_TEMPS, payload: temps });
     } catch (err) {
-      alert(err.response.data);
+      dispatch({ type: GET_ALERT, payload: err.message });
+      console.log(err);
     }
   };
 };

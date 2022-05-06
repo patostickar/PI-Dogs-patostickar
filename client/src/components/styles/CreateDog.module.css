@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  border-radius: 5px;
+  background-color: #facb8385;
+  padding: 2em 2em 2em 0em;
+  width: 80vw;
+  max-width: 800px;
+  margin: 2em auto;
+}
+
+.picture {
+  background-image: url('../../img/5750.png');
+  width: 30%;
+  margin-right: 2em;
+  background-position-y: center;
+  background-position-x: right;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.label,
+.input {
+  position: relative;
+  display: block;
+}
+
+.select {
+  background-color: white;
+  padding-top: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.col {
+  position: relative;
+  padding-top: 1em;
+}
+
+.inputBox {
+  position: relative;
+  width: 100%;
+}
+.check,
+.xmark {
+  position: absolute;
+  right: 50px;
+  top: 22px;
+}
+
+.check {
+  color: #4caf50;
+}
+
+.xmark {
+  color: red;
+}
+.input[type='submit'] {
+  width: 100%;
+  background-color: #ddbb88;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input[type='submit']:hover {
+  background-color: var(--button-background);
+}
+
+.temperaments {
+  display: inline-block;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--light-gray);
+  border-radius: 0.8em;
+  margin: 0.3em 0.3em 0.3em 0;
+  padding: 0.5em;
+  font-size: 1em;
+}

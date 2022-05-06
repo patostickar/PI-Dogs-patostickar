@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearAlertMessage } from '../redux/actions';
+import style from './styles/Alert.module.css';
 
 export default function Alert(props) {
   const [visible, setVisible] = useState(true);
@@ -18,5 +19,5 @@ export default function Alert(props) {
     };
   }, [dispatch, props.delay]);
 
-  return visible ? <div>{alertMessage}</div> : <div />;
+  return visible ? <div className={style.alert}>{alertMessage}</div> : <div />;
 }

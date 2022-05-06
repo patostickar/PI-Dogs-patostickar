@@ -53,6 +53,7 @@ const Main = () => {
             dogsPerPage={dogsPerPage}
             totalDogs={filteredDogs.length}
             paginate={paginate}
+            currentPage={currentPage}
           />
         </>
       )}

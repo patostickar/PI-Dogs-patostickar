@@ -25,49 +25,57 @@ function Navbar() {
       <Link to='/dog'>
         <p>Create</p>
       </Link>
-      <SearchBar />
-      <ClearFields />
-      <div className={style.dropdown}>
-        <button className={style.dropbtn}>
-          Sort
-          <i className={`fa-solid fa-caret-down ${style.fa}`}></i>
-        </button>
-        <div className={style.dropdown_content}>
-          <button onClick={() => dispatch(sort('asc', 'name', pathname))}>
-            Name A-Z
-          </button>
-          <button onClick={() => dispatch(sort('dsc', 'name', pathname))}>
-            Name Z-A
-          </button>
-          <button onClick={() => dispatch(sort('dsc', 'weight', pathname))}>
-            Weight ⬇️
-          </button>
-          <button onClick={() => dispatch(sort('asc', 'weight', pathname))}>
-            Weight ⬆️
-          </button>
-        </div>
-      </div>
-
-      {pathname === '/dogs' ? (
-        <div className={style.dropdown}>
-          <button className={style.dropbtn}>
-            Source
-            <i className={`fa-solid fa-caret-down ${style.fa}`}></i>
-          </button>
-          <div className={style.dropdown_content}>
-            <button onClick={() => dispatch(filter('src', 'API', pathname))}>
-              API
+      {/^\/dogs$/.test(pathname) || /\/favourites/.test(pathname) ? (
+        <>
+          <SearchBar />
+          <ClearFields />
+          <div className={style.dropdown}>
+            <button className={style.dropbtn}>
+              Sort
+              <i className={`fa-solid fa-caret-down ${style.fa}`}></i>
             </button>
-            <button onClick={() => dispatch(filter('src', 'DB', pathname))}>
-              DB
-            </button>
-            <button onClick={() => dispatch(filter('src', 'ALL', pathname))}>
-              All
-            </button>
+            <div className={style.dropdown_content}>
+              <button onClick={() => dispatch(sort('asc', 'name', pathname))}>
+                Name A-Z
+              </button>
+              <button onClick={() => dispatch(sort('dsc', 'name', pathname))}>
+                Name Z-A
+              </button>
+              <button onClick={() => dispatch(sort('dsc', 'weight', pathname))}>
+                Weight ⬇️
+              </button>
+              <button onClick={() => dispatch(sort('asc', 'weight', pathname))}>
+                Weight ⬆️
+              </button>
+            </div>
           </div>
-        </div>
+
+          {pathname === '/dogs' ? (
+            <div className={style.dropdown}>
+              <button className={style.dropbtn}>
+                Source
+                <i className={`fa-solid fa-caret-down ${style.fa}`}></i>
+              </button>
+              <div className={style.dropdown_content}>
+                <button
+                  onClick={() => dispatch(filter('src', 'API', pathname))}
+                >
+                  API
+                </button>
+                <button onClick={() => dispatch(filter('src', 'DB', pathname))}>
+                  DB
+                </button>
+                <button
+                  onClick={() => dispatch(filter('src', 'ALL', pathname))}
+                >
+                  All
+                </button>
+              </div>
+            </div>
+          ) : null}
+          <Temperaments />
+        </>
       ) : null}
-      <Temperaments />
     </div>
   );
 }

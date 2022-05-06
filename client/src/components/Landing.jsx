@@ -21,19 +21,23 @@ const Landing = () => {
         <div className={style.nums}></div>
 
         <Link to='/dogs'>
-          <button class={`${style.button} ${style.learn_more} ${style.takeme}`}>
-            <span class={style.circle} aria-hidden='true'>
-              <span class={`${style.icon} ${style.arrow}`}></span>
+          <button
+            className={`${style.button} ${style.learn_more} ${style.takeme}`}
+          >
+            <span className={style.circle} aria-hidden='true'>
+              <span className={`${style.icon} ${style.arrow}`}></span>
             </span>
-            <span class={style.button_text}>Take Me!</span>
+            <span className={style.button_text}>Take Me!</span>
           </button>
         </Link>
         <Link to={luckyDogIdLink}>
-          <button class={`${style.button} ${style.learn_more} ${style.lucky}`}>
-            <span class={style.circle} aria-hidden='true'>
-              <span class={`${style.icon} ${style.arrow}`}></span>
+          <button
+            className={`${style.button} ${style.learn_more} ${style.lucky}`}
+          >
+            <span className={style.circle} aria-hidden='true'>
+              <span className={`${style.icon} ${style.arrow}`}></span>
             </span>
-            <span class={style.button_text}>I'm Feeling Lucky</span>
+            <span className={style.button_text}>I'm Feeling Lucky</span>
           </button>
         </Link>
       </main>
