@@ -1,0 +1,121 @@
+:root {
+  --img-size: 250px;
+}
+
+.outer {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5em auto;
+  max-width: 1000px;
+  justify-content: center;
+}
+
+.left {
+  width: 50%;
+  position: relative;
+  background: linear-gradient(
+    99deg,
+    rgb(255 255 255 / 0%) 25%,
+    var(--button-background) 24%,
+    var(--button-background) 60%,
+    rgb(255 255 255 / 0%) 66%
+  );
+}
+
+.lefBand {
+  background: linear-gradient(99deg, white 63%, rgba(255, 255, 255, 0.5) 66%);
+}
+
+.image {
+  width: var(--img-size);
+  height: var(--img-size);
+  background-size: cover;
+  background-position: center;
+  border-radius: 100%;
+  position: absolute;
+  opacity: 0.9;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-25%);
+}
+
+.right {
+  width: 50%;
+}
+
+.name {
+  margin-left: -3em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #152536;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--button-background);
+}
+
+.weight {
+  display: flex;
+  justify-content: space-between;
+  width: 11em;
+  margin-left: -2em;
+}
+
+.weight_info {
+  text-align: center;
+  display: flex;
+  width: 5em;
+  height: 4em;
+  margin: 0.5em 0;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 1em;
+  border: 2px solid #facb83;
+  box-shadow: 0 0 10px var(--button-background);
+}
+
+.weight_info p {
+  margin: 0;
+  color: var(--dark-gray);
+  font-weight: 600;
+  text-shadow: 0 0 10px var(--button-background);
+}
+
+.h3 {
+  color: #575757;
+  font-family: var(--sen-font);
+  font-weight: 100;
+  font-size: 1.3em;
+  margin: 0.5em 0;
+}
+
+ul.ul {
+  list-style-type: none;
+  margin: 1em 0 1em -11em;
+  overflow: hidden;
+}
+
+li.li {
+  display: inline-block;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--light-gray);
+  border-radius: 0.8em;
+  margin: 0.3em 0.3em 0.3em 0;
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+.life_span {
+  margin-left: -3.5em;
+}
+
+.wh3 {
+  margin-left: -3em;
+}
+
+.hh3 {
+  margin-left: -2em;
+}
+
+.th3 {
+  margin-left: -4em;
+}

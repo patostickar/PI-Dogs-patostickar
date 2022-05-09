@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getDogDetail, clearPage } from '../redux/actions';
 import Spinner from './Spinner';
 import Navbar from './Navbar.jsx';
-import GoBackBtn from './GoBackBtn';
+import style from './styles/DogDetail.module.css';
 
 const DogDetail = () => {
   const { id } = useParams();
@@ -37,26 +37,52 @@ const DogDetail = () => {
   return (
     <>
       <Navbar />
-      <GoBackBtn />
       {isLoading ? (
         <Spinner />
       ) : (
-        <div>
-          <p>{image}</p>
-          <p>{name}</p>
-          <p>{life_span}</p>
-          <p>Weight</p>
-          <p>Min: {w?.min || `-`}</p>
-          <p>Max: {w?.max || `-`}</p>
-          <p>Height</p>
-          <p>Min: {h?.min || `-`}</p>
-          <p>Max: {h?.max || `-`}</p>
-          <ul>
-            {t?.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-            <p>{id}</p>
-          </ul>
+        <div className={style.outer}>
+          <div className={style.left}>
+            <div className={style.lefBand}></div>
+            <div
+              style={{ backgroundImage: `url(${image})` }}
+              className={style.image}
+            />
+          </div>
+          <div className={style.right}>
+            <h1 className={style.name}>{name}</h1>
+            <h3 className={`${style.h3} ${style.life_span}`}>{life_span}</h3>
+
+            <h3 className={`${style.h3} ${style.wh3}`}>Weight</h3>
+            <div className={style.weight}>
+              <div className={style.weight_info}>
+                <p>Min</p>
+                <p>{`${w?.min || `?`} kg`}</p>
+              </div>
+              <div className={style.weight_info}>
+                <p>Max</p>
+                <p>{`${w?.max || `?`} kg`}</p>
+              </div>
+            </div>
+            <h3 className={`${style.h3} ${style.hh3}`}>Height</h3>
+            <div className={style.weight}>
+              <div className={style.weight_info}>
+                <p>Min</p>
+                <p>{`${h?.min || `?`} cm`}</p>
+              </div>
+              <div className={style.weight_info}>
+                <p>Max</p>
+                <p>{`${h?.max || `?`} cm`}</p>
+              </div>
+            </div>
+            <h3 className={`${style.h3} ${style.th3}`}>Temperaments</h3>
+            <ul className={style.ul}>
+              {t?.map((t) => (
+                <li className={style.li} key={t}>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     </>

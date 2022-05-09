@@ -181,7 +181,7 @@ export default function Form() {
   };
 
   useEffect(() => {
-    if (/created/.test(alert))
+    if (/created/.test(alert)) {
       setInput({
         name: '',
         height_min: '',
@@ -194,6 +194,9 @@ export default function Form() {
         temperamentInput: '',
         temperament: [],
       });
+      setTouched({});
+      setErrors({});
+    }
   }, [alert]);
 
   // Check if input has been touched and if it has errors

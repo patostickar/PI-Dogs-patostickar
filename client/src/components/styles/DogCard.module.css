@@ -65,7 +65,7 @@ article.card .infos .title .fav {
   transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
 }
 
-ul {
+ul.ul {
   list-style-type: none;
   margin: 0;
   padding: 0;

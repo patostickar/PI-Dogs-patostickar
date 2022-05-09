@@ -1,13 +1,13 @@
-const server = require("./src/app.js");
-const { conn, Temperament } = require("./src/db.js");
+const server = require('./src/app.js');
+const { conn, Temperament } = require('./src/db.js');
 const { API_KEY } = process.env;
-const axios = require("axios");
+const axios = require('axios');
 
 // Syncing all the models at once.
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(3001, () => {
-    console.log("%s listening at 3001");
+    console.log('%s listening at 3001');
     // Populate Temperaments table from API at runtime
     axios
       .get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
@@ -15,7 +15,7 @@ conn.sync({ force: true }).then(() => {
         const temperamentsList = [];
         res.data.map((dog) => {
           if (dog.temperament) {
-            dog.temperament.split(", ").map((t) => temperamentsList.push(t));
+            dog.temperament.split(', ').map((t) => temperamentsList.push(t));
           }
         });
         return Array.from(new Set(temperamentsList)).map((t) => ({
@@ -24,7 +24,7 @@ conn.sync({ force: true }).then(() => {
       })
       .then(async (temperamentsList) => {
         await Temperament.bulkCreate(temperamentsList).then(() =>
-          console.log("Dogs temperaments have been saved")
+          console.log('Dogs temperaments have been saved')
         );
       });
   });

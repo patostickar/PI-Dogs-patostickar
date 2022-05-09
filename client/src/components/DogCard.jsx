@@ -71,9 +71,6 @@ const DogCard = ({ dog }) => {
           <h3 className={style.details}>MORE INFO</h3>
         </Link>
       </div>
-
-      {/*
-       */}
     </article>
   );
 };
