@@ -5,16 +5,16 @@ import Spinner from './Spinner';
 import Navbar from './Navbar';
 import DogCard from './DogCard';
 import Pagination from './Pagination';
-import Alert from './Alert';
 import style from './styles/Main.module.css';
 
 const Main = () => {
   const dogs = useSelector((state) => state.dogs);
   const tempFilter = useSelector((state) => state.tempFilter);
+
   const [isLoading, setIsLoading] = useState(true);
-  const alertMessage = useSelector((state) => state.alertMessage);
   const [currentPage, setCurrentPage] = useState(1);
   const [dogsPerPage] = useState(8);
+  const [dogsWithTemperament, setDogsWithTemperament] = useState(true);
 
   // Indexes for pagination
   const indexOfLastDog = currentPage * dogsPerPage; // 8 - 16 - 24
@@ -30,11 +30,16 @@ const Main = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    if (filteredDogs.length) {
+    if (dogs.length) {
       setIsLoading(false);
     }
+
+    !filteredDogs?.length
+      ? setDogsWithTemperament(false)
+      : setDogsWithTemperament(true);
+
     setCurrentPage(1);
-  }, [filteredDogs.length]);
+  }, [dogs.length, filteredDogs.length]);
 
   return (
     <>
@@ -43,8 +48,8 @@ const Main = () => {
         <Spinner />
       ) : (
         <>
-          {alertMessage && <Alert delay='3000' />}
           <main className={style.main}>
+            {!dogsWithTemperament && <h1>No dogs with that Temperament</h1>}
             {currentDogs.map((dog) => (
               <DogCard dog={dog} key={dog.id} />
             ))}
