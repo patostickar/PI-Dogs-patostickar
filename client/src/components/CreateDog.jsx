@@ -240,7 +240,7 @@ export default function Form() {
               </div>
 
               <label className={style.label} htmlFor='height_min'>
-                Height:
+                Height (cm):
               </label>
               <div className={style.row}>
                 {/* Si hay errors.name se agrega la clase danger */}
@@ -277,7 +277,7 @@ export default function Form() {
               </div>
 
               <label className={style.label} htmlFor='weight_min'>
-                Weight:
+                Weight (kg):
               </label>
               <div className={style.row}>
                 <div className={style.inputBox}>

@@ -42,10 +42,10 @@ function Navbar() {
                 Name Z-A
               </button>
               <button onClick={() => dispatch(sort('dsc', 'weight', pathname))}>
-                Weight ⬇️
+                Weight (DSC)
               </button>
               <button onClick={() => dispatch(sort('asc', 'weight', pathname))}>
-                Weight ⬆️
+                Weight (ASC)
               </button>
             </div>
           </div>

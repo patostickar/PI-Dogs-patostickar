@@ -1,4 +1,4 @@
-article.card {
+.card {
   position: relative;
   width: 350px;
   height: 350px;
@@ -8,7 +8,7 @@ article.card {
   overflow: hidden;
   border: 2px solid var(--button-background);
 }
-article.card .thumb {
+.thumb {
   width: auto;
   height: 260px;
   background-repeat: no-repeat;
@@ -16,13 +16,13 @@ article.card .thumb {
   background-size: cover;
 }
 
-article.card img {
+.card img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover; /* or object-fit: contain; */
 }
-article.card .infos {
+.infos {
   width: auto;
   height: 350px;
   position: relative;
@@ -30,7 +30,7 @@ article.card .infos {
   background: var(--color-background);
   transition: 0.4s 0.15s cubic-bezier(0.17, 0.67, 0.5, 1.03);
 }
-article.card .infos .title {
+.title {
   position: relative;
   margin: 10px 0;
   padding-right: 25px;
@@ -42,7 +42,12 @@ article.card .infos .title {
   text-transform: uppercase;
   text-shadow: 0 0 10px var(--button-background);
 }
-article.card .infos .title .fav {
+
+.fa {
+  margin-left: 1em;
+}
+
+.fav {
   position: absolute;
   top: 50%;
   right: 0;
@@ -65,14 +70,14 @@ article.card .infos .title .fav {
   transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
 }
 
-ul.ul {
+.ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li.li {
+.li {
   display: inline-block;
   text-align: center;
   color: var(--white);
@@ -84,7 +89,7 @@ li.li {
   opacity: 0;
   transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
 }
-article.card .infos .details {
+.details {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -100,16 +105,13 @@ article.card .infos .details {
   opacity: 0;
   transition: 0.25s linear;
 }
-article.card:hover .infos {
-  transform: translateY(-260px);
-  background-color: var(--button-background);
-}
-article.card .infos .details:hover {
+
+.details:hover {
   box-shadow: 0 0 12px 0px #ffffff;
   color: var(--button-background);
 }
 
-article.card .infos .weight {
+.weight {
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -119,7 +121,7 @@ article.card .infos .weight {
   width: 9em;
 }
 
-article.card .infos .weight_info {
+.weight_info {
   text-align: center;
   display: flex;
   width: 4em;
@@ -130,19 +132,23 @@ article.card .infos .weight_info {
   border: 2px solid var(--white);
 }
 
-article.card .infos .weight_info p {
+.weight_info p {
   margin: 0;
   color: #ffffff;
   font-weight: 600;
 }
 
-article.card .infos .weight_info .num {
+.weight_info .num {
   font-weight: 700;
 }
 
-article.card:hover .infos .seats,
-article.card:hover .infos li,
-article.card:hover .infos h3,
-article.card:hover .infos .details {
+.card:hover .infos {
+  transform: translateY(-260px);
+  background-color: var(--button-background);
+}
+article.card:hover .seats,
+article.card:hover .li,
+article.card:hover h3,
+article.card:hover .details {
   opacity: 1;
 }

@@ -31,6 +31,7 @@ const DogCard = ({ dog }) => {
       <div className={style.infos}>
         <h2 className={style.title}>
           {name}
+
           {isFav ? (
             <span
               className={style.fav}
@@ -48,6 +49,7 @@ const DogCard = ({ dog }) => {
               }}
             ></span>
           )}
+          <i class={`fa-solid fa-angles-up ${style.fa}`}></i>
         </h2>
         <h3 className={style.temperament}>Temperaments</h3>
         <ul className={style.ul}>

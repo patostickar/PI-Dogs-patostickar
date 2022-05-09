@@ -50,7 +50,9 @@ const DogDetail = () => {
           </div>
           <div className={style.right}>
             <h1 className={style.name}>{name}</h1>
-            <h3 className={`${style.h3} ${style.life_span}`}>{life_span}</h3>
+            <h3 className={`${style.h3} ${style.life_span}`}>
+              Life Span: {life_span}
+            </h3>
 
             <h3 className={`${style.h3} ${style.wh3}`}>Weight</h3>
             <div className={style.weight}>
