@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './styles/Pagination.module.css';
 
 const Pagination = ({ dogsPerPage, totalDogs, paginate, currentPage }) => {
@@ -18,7 +18,15 @@ const Pagination = ({ dogsPerPage, totalDogs, paginate, currentPage }) => {
     indexOfLastButton
   );
 
-  const totalList = Math.ceil(pageNumbers.length / buttonsPerList);
+  // const totalList = Math.ceil(pageNumbers.length / buttonsPerList);
+
+  useEffect(() => {
+    setCurrentList(
+      Math.floor(
+        currentPage / buttonsPerList - (buttonsPerList + 1) / buttonsPerList + 2
+      )
+    );
+  }, [currentPage, buttonsPerList]);
 
   return (
     <footer>
@@ -26,8 +34,8 @@ const Pagination = ({ dogsPerPage, totalDogs, paginate, currentPage }) => {
         <ul>
           <li>
             <button
-              disabled={currentList === 1 ? true : false}
-              onClick={() => setCurrentList(currentList - 1)}
+              disabled={currentPage === 1 ? true : false}
+              onClick={() => paginate(currentPage - 1)}
             >
               <i className='fa-solid fa-angle-left'></i>
             </button>
@@ -44,8 +52,12 @@ const Pagination = ({ dogsPerPage, totalDogs, paginate, currentPage }) => {
           ))}
           <li>
             <button
-              disabled={currentList === totalList ? true : false}
-              onClick={() => setCurrentList(currentList + 1)}
+              disabled={
+                currentPage === Math.ceil(totalDogs / dogsPerPage)
+                  ? true
+                  : false
+              }
+              onClick={() => paginate(currentPage + 1)}
             >
               <i className='fa-solid fa-angle-right'></i>
             </button>

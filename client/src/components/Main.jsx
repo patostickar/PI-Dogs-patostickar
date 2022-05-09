@@ -16,13 +16,6 @@ const Main = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dogsPerPage] = useState(8);
 
-  useEffect(() => {
-    if (dogs.length) {
-      setIsLoading(false);
-    }
-    setCurrentPage(1);
-  }, [dogs]);
-
   // Indexes for pagination
   const indexOfLastDog = currentPage * dogsPerPage; // 8 - 16 - 24
   const indexOfFirstDog = indexOfLastDog - dogsPerPage; // 0 - 8 - 16
@@ -35,6 +28,13 @@ const Main = () => {
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    if (filteredDogs.length) {
+      setIsLoading(false);
+    }
+    setCurrentPage(1);
+  }, [filteredDogs.length]);
 
   return (
     <>

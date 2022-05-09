@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { sort, filter } from '../redux/actions';
 import { useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
@@ -16,15 +16,15 @@ function Navbar() {
       <Link to='/'>
         <p>Home</p>
       </Link>
-      <Link to='/dogs'>
+      <NavLink exact to='/dogs' activeClassName={style.selected}>
         <p>Dogs</p>
-      </Link>
-      <Link to='/favourites'>
+      </NavLink>
+      <NavLink exact to='/favourites' activeClassName={style.selected}>
         <p>Favourites</p>
-      </Link>
-      <Link to='/dog'>
+      </NavLink>
+      <NavLink exact to='/dog' activeClassName={style.selected}>
         <p>Create</p>
-      </Link>
+      </NavLink>
       {/^\/dogs$/.test(pathname) || /\/favourites/.test(pathname) ? (
         <>
           <SearchBar />
