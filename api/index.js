@@ -30,7 +30,7 @@ const axios = require('axios');
 //   });
 // });
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(process.env.PORT, () => {
     console.log('%s listening at 3001');
     // Populate Temperaments table from API at runtime
