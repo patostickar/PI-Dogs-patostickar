@@ -12,7 +12,7 @@ import axios from 'axios';
 export function getDogs() {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_BASE_URL}/dogs`)
+      .get(`/dogs`)
       .then((res) => dispatch({ type: GET_DOGS, payload: res.data }))
       .catch((err) => {
         dispatch({ type: GET_ALERT, payload: err.message });
@@ -24,7 +24,7 @@ export function getDogs() {
 export function getDogByName(name) {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_BASE_URL}/dogs?name=${name}`)
+      .get(`/dogs?name=${name}`)
       .then((res) => {
         if (Array.isArray(res.data))
           return dispatch({ type: GET_DOGS_BY_NAME, payload: res.data }); // Dog found
@@ -40,7 +40,7 @@ export function getDogByName(name) {
 export function getDogDetail(id) {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_BASE_URL}/dogs/${id}`)
+      .get(`/dogs/${id}`)
       .then((res) => {
         if (typeof res.data === 'object') {
           return dispatch({ type: GET_DOG_DETAIL, payload: res.data });
@@ -63,9 +63,7 @@ export function clearPage() {
 export const getTemps = () => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/temperament`
-      );
+      const res = await axios.get(`/temperament`);
       const temps = res.data.sort((a, b) => a.name.localeCompare(b.name));
       return dispatch({ type: GET_TEMPS, payload: temps });
     } catch (err) {
