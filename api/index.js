@@ -48,9 +48,9 @@ conn.sync().then(() => {
         }));
       })
       .then(async (temperamentsList) => {
-        await Temperament.bulkCreate(temperamentsList).then(() =>
-          console.log('Dogs temperaments have been saved')
-        );
+        await Temperament.bulkCreate(temperamentsList)
+          .then(() => console.log('Dogs temperaments have been saved'))
+          .catch(console.log('API Temperaments previously loaded'));
       });
   });
 });
