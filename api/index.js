@@ -5,52 +5,37 @@ const axios = require('axios');
 
 // Syncing all the models at once.
 
-// conn.sync({ force: false }).then(() => {
-//   server.listen(process.env.PORT, () => {
-//     console.log('%s listening at 3001');
-//     // Populate Temperaments table from API at runtime
-//     axios
-//       .get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
-//       .then((res) => {
-//         const temperamentsList = [];
-//         res.data.map((dog) => {
-//           if (dog.temperament) {
-//             dog.temperament.split(', ').map((t) => temperamentsList.push(t));
-//           }
-//         });
-//         return Array.from(new Set(temperamentsList)).map((t) => ({
-//           name: t,
-//         }));
-//       })
-//       .then(async (temperamentsList) => {
-//         await Temperament.bulkCreate(temperamentsList).then(() =>
-//           console.log('Dogs temperaments have been saved')
-//         );
-//       });
-//   });
-// });
-
-conn.sync().then(() => {
-  server.listen(process.env.PORT, () => {
-    console.log('%s listening at 3001');
-    // Populate Temperaments table from API at runtime
-    axios
-      .get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
-      .then((res) => {
-        const temperamentsList = [];
-        res.data.map((dog) => {
-          if (dog.temperament) {
-            dog.temperament.split(', ').map((t) => temperamentsList.push(t));
-          }
+conn
+  .sync({ force: false })
+  .then(() => {
+    server.listen(process.env.PORT, () => {
+      console.log('%s listening at 3001');
+      // Populate Temperaments table from API at runtime
+      axios
+        .get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
+        .then((res) => {
+          const temperamentsList = [];
+          res.data.map((dog) => {
+            if (dog.temperament) {
+              dog.temperament.split(', ').map((t) => temperamentsList.push(t));
+            }
+          });
+          return Array.from(new Set(temperamentsList)).map((t) => ({
+            name: t,
+          }));
+        })
+        .then(async (temperamentsList) => {
+          //
+          await Temperament.bulkCreate(temperamentsList, {
+            ignoreDuplicates: true,
+          });
+          // for (const t of temperamentsList) {
+          //   await Temperament.findOrCreate({
+          //     where: t,
+          //   });
+          // }
+          console.log('Dogs temperaments have been saved');
         });
-        return Array.from(new Set(temperamentsList)).map((t) => ({
-          name: t,
-        }));
-      })
-      .then(async (temperamentsList) => {
-        await Temperament.bulkCreate(temperamentsList)
-          .then(() => console.log('Dogs temperaments have been saved'))
-          .catch(console.log('API Temperaments previously loaded'));
-      });
-  });
-});
+    });
+  })
+  .catch((err) => console.log(err));
