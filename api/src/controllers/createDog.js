@@ -36,14 +36,18 @@ module.exports.createDog = async (req, res, next) => {
     typeof name !== 'string' ||
     !/^[a-zA-Z ]*$/.test(name) ||
     typeof height_min !== 'number' ||
+    !Number.isInteger(height_min) ||
     height_min <= 0 ||
     height_min > height_max ||
     typeof height_max !== 'number' ||
+    !Number.isInteger(height_max) ||
     height_max <= 0 ||
     typeof weight_min !== 'number' ||
+    !Number.isInteger(weight_min) ||
     weight_min <= 0 ||
     weight_min > weight_max ||
     typeof weight_max !== 'number' ||
+    !Number.isInteger(weight_max) ||
     weight_max <= 0
   ) {
     return res
