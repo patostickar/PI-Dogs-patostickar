@@ -81,7 +81,7 @@ module.exports = (sequelize) => {
     height: {
       type: DataTypes.VIRTUAL,
       get() {
-        return `${this.height_min} - ${this.height_max}`;
+        return [this.height_min, this.height_max];
       },
     },
   });

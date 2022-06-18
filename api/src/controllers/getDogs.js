@@ -19,7 +19,6 @@ const { getDogsByName } = require('../services/getDogsByName');
 module.exports.getDogs = async (req, res, next) => {
   const { name } = req.query;
 
-  // Por ahora lo dejo así, pero preferible usar una query para el sort o incluso hacer una función sort aparte
   try {
     let dogs = await getDogsByName(name);
     if (!dogs.length) return res.send('No puppies found with that name ☹️');
