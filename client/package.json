@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
     "react-error-overlay": "^6.0.9"
   }
 }
